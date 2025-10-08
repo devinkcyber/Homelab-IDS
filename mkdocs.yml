@@ -1,0 +1,43 @@
+site_name: "Devin's SOC Homelab"
+site_description: "Hands-on SOC homelab: Security Onion, AD, DMZ honeypot, ATT&CK-mapped detections."
+site_url: ""
+repo_url: ""
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - content.code.copy
+  language: en
+
+plugins:
+  - search
+  - glightbox
+  - mermaid2
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight
+
+extra_css:
+  - stylesheets/extra.css
+
+nav:
+  - "Quick Start": index.md
+  - "Topology": topology.md
+  - "VM Builds":
+      - "Security Onion": vm/security-onion.md
+      - "Domain Controller": vm/dc.md
+      - "Workstation": vm/workstation.md
+      - "Webserver (DVWA)": vm/webserver.md
+  - "Attack Scenarios (MITRE)": attacks/index.md
+  - "Detections & Dashboards": detections/index.md
+  - "IR Playbooks": ir/index.md
