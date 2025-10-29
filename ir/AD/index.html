@@ -6,25 +6,27 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Hands-on SOC homelab: Security Onion, AD, DMZ honeypot, ATT&CK-mapped detections.">
+        <meta name="description" content="Devin's Hands-on SOC homelab: Security Onion, AD, DMZ honeypot, ATT&CK-mapped detections.">
       
       
       
       
-        <link rel="prev" href="../detections/">
+        <link rel="prev" href="../../detections/web/">
       
       
+        <link rel="next" href="../web/">
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.17">
     
     
       
-        <title>Incident Response - Devin's SOC Homelab</title>
+        <title>Active Directory Incident Response - Devin's SOC Homelab</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
       
       
 
@@ -43,16 +45,16 @@
       
     
     
-      <link rel="stylesheet" href="../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
     
     
     
-   <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
     html.glightbox-open { overflow: initial; height: 100%; }
     .gslide-title { margin-top: 0px; user-select: text; }
     .gslide-desc { color: #666; user-select: text; }
@@ -61,7 +63,7 @@
     .gdesc-inner { font-size: 0.75rem; }
     body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
     body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     <body dir="ltr">
@@ -73,7 +75,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ir-playbooks-case-notes" class="md-skip">
+        <a href="#active-directory-ir-playbooks" class="md-skip">
           Skip to content
         </a>
       
@@ -87,7 +89,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="Devin&#39;s SOC Homelab" class="md-header__button md-logo" aria-label="Devin's SOC Homelab" data-md-component="logo">
+    <a href="../.." title="Devin&#39;s SOC Homelab" class="md-header__button md-logo" aria-label="Devin's SOC Homelab" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -107,7 +109,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Incident Response
+              Active Directory Incident Response
             
           </span>
         </div>
@@ -180,7 +182,7 @@
   
   
     <li class="md-tabs__item">
-      <a href=".." class="md-tabs__link">
+      <a href="../.." class="md-tabs__link">
         
   
   
@@ -199,7 +201,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../topology/" class="md-tabs__link">
+      <a href="../../topology/" class="md-tabs__link">
         
   
   
@@ -220,7 +222,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../vm/security-onion/" class="md-tabs__link">
+        <a href="../../vm/security-onion/" class="md-tabs__link">
           
   
   
@@ -239,17 +241,20 @@
   
   
   
-    <li class="md-tabs__item">
-      <a href="../attacks/" class="md-tabs__link">
-        
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../attacks/AD/" class="md-tabs__link">
+          
   
   
     
   
   Attack Scenarios (MITRE)
 
-      </a>
-    </li>
+        </a>
+      </li>
+    
   
 
       
@@ -258,17 +263,20 @@
   
   
   
-    <li class="md-tabs__item">
-      <a href="../detections/" class="md-tabs__link">
-        
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../detections/AD/" class="md-tabs__link">
+          
   
   
     
   
   Detections & Dashboards
 
-      </a>
-    </li>
+        </a>
+      </li>
+    
   
 
       
@@ -279,17 +287,20 @@
     
   
   
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="./" class="md-tabs__link">
-        
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
   
   
     
   
   IR Playbooks
 
-      </a>
-    </li>
+        </a>
+      </li>
+    
   
 
       
@@ -315,7 +326,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Devin&#39;s SOC Homelab" class="md-nav__button md-logo" aria-label="Devin's SOC Homelab" data-md-component="logo">
+    <a href="../.." title="Devin&#39;s SOC Homelab" class="md-nav__button md-logo" aria-label="Devin's SOC Homelab" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -333,7 +344,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -355,7 +366,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../topology/" class="md-nav__link">
+      <a href="../../topology/" class="md-nav__link">
         
   
   
@@ -430,7 +441,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vm/security-onion/" class="md-nav__link">
+      <a href="../../vm/security-onion/" class="md-nav__link">
         
   
   
@@ -453,7 +464,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vm/dc/" class="md-nav__link">
+      <a href="../../vm/dc/" class="md-nav__link">
         
   
   
@@ -476,7 +487,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vm/workstation/" class="md-nav__link">
+      <a href="../../vm/workstation/" class="md-nav__link">
         
   
   
@@ -499,7 +510,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vm/webserver/" class="md-nav__link">
+      <a href="../../vm/webserver/" class="md-nav__link">
         
   
   
@@ -528,9 +539,31 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../attacks/" class="md-nav__link">
+    
+    
+      
         
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
   
   
   <span class="md-ellipsis">
@@ -539,24 +572,29 @@
   </span>
   
 
-      </a>
-    </li>
-  
-
-    
-      
-      
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Attack Scenarios (MITRE)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
   
   
   
   
     <li class="md-nav__item">
-      <a href="../detections/" class="md-nav__link">
+      <a href="../../attacks/AD/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Detections & Dashboards
+    Active Directory
     
   </span>
   
@@ -565,9 +603,196 @@
     </li>
   
 
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../attacks/web/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Web Server
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
     
       
       
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Detections & Dashboards
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Detections & Dashboards
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../detections/AD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Active Directory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../detections/web/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Web Server
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    IR Playbooks
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            IR Playbooks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
   
   
     
@@ -587,7 +812,7 @@
   
   
   <span class="md-ellipsis">
-    IR Playbooks
+    Active Directory
     
   </span>
   
@@ -600,7 +825,7 @@
   
   
   <span class="md-ellipsis">
-    IR Playbooks
+    Active Directory
     
   </span>
   
@@ -623,18 +848,45 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#playbook-suspicious-powershell-on-workstation" class="md-nav__link">
+  <a href="#playbook-brute-forcing-guest-account-t1110001" class="md-nav__link">
     <span class="md-ellipsis">
-      Playbook: Suspicious PowerShell on Workstation
+      Playbook: Brute Forcing Guest Account (T1110.001)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#playbook-web-shell-on-dvwa" class="md-nav__link">
+  <a href="#playbook-kerberoast-of-svc-test-t1558003-t1110002-t1078002" class="md-nav__link">
     <span class="md-ellipsis">
-      Playbook: Web Shell on DVWA
+      Playbook: Kerberoast of svc-test (T1558.003 &amp; T1110.002 &amp; T1078.002)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#playbook-upload-of-sharphound-t1105-t1047" class="md-nav__link">
+    <span class="md-ellipsis">
+      Playbook: Upload of SharpHound (T1105 &amp; T1047)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#playbook-dcsync-t1003006-t1078002" class="md-nav__link">
+    <span class="md-ellipsis">
+      Playbook: DCSync (T1003.006 &amp; T1078.002)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#playbook-pass-the-hash-to-login-as-domain-admin-t1550002-t1021006" class="md-nav__link">
+    <span class="md-ellipsis">
+      Playbook: Pass-the-hash to Login as Domain Admin (T1550.002 &amp; T1021.006)
     </span>
   </a>
   
@@ -643,6 +895,37 @@
     </ul>
   
 </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Web Server
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -675,18 +958,45 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#playbook-suspicious-powershell-on-workstation" class="md-nav__link">
+  <a href="#playbook-brute-forcing-guest-account-t1110001" class="md-nav__link">
     <span class="md-ellipsis">
-      Playbook: Suspicious PowerShell on Workstation
+      Playbook: Brute Forcing Guest Account (T1110.001)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#playbook-web-shell-on-dvwa" class="md-nav__link">
+  <a href="#playbook-kerberoast-of-svc-test-t1558003-t1110002-t1078002" class="md-nav__link">
     <span class="md-ellipsis">
-      Playbook: Web Shell on DVWA
+      Playbook: Kerberoast of svc-test (T1558.003 &amp; T1110.002 &amp; T1078.002)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#playbook-upload-of-sharphound-t1105-t1047" class="md-nav__link">
+    <span class="md-ellipsis">
+      Playbook: Upload of SharpHound (T1105 &amp; T1047)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#playbook-dcsync-t1003006-t1078002" class="md-nav__link">
+    <span class="md-ellipsis">
+      Playbook: DCSync (T1003.006 &amp; T1078.002)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#playbook-pass-the-hash-to-login-as-domain-admin-t1550002-t1021006" class="md-nav__link">
+    <span class="md-ellipsis">
+      Playbook: Pass-the-hash to Login as Domain Admin (T1550.002 &amp; T1021.006)
     </span>
   </a>
   
@@ -708,21 +1018,41 @@
 
 
 
-<h1 id="ir-playbooks-case-notes">IR Playbooks &amp; Case Notes<a class="headerlink" href="#ir-playbooks-case-notes" title="Permanent link">&para;</a></h1>
-<h2 id="playbook-suspicious-powershell-on-workstation">Playbook: Suspicious PowerShell on Workstation<a class="headerlink" href="#playbook-suspicious-powershell-on-workstation" title="Permanent link">&para;</a></h2>
+<h1 id="active-directory-ir-playbooks">Active Directory IR Playbooks<a class="headerlink" href="#active-directory-ir-playbooks" title="Permanent link">&para;</a></h1>
+<h2 id="playbook-brute-forcing-guest-account-t1110001">Playbook: Brute Forcing Guest Account (T1110.001)<a class="headerlink" href="#playbook-brute-forcing-guest-account-t1110001" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Trigger:</strong> Detection rule <em>Suspicious PowerShell</em> fired.</li>
-<li><strong>Triage:</strong> Confirm user/process tree; retrieve command line; check network egress.</li>
-<li><strong>Contain:</strong> Quarantine host (isolate NIC), disable user if compromised.</li>
-<li><strong>Eradication/Recovery:</strong> Remove persistence, patch, unblock after monitoring.</li>
-<li><strong>Evidences:</strong> Links to Kibana saved view, hashes, timeline.</li>
+<li><strong>Trigger:</strong> Detection rule <em>Multiple Failed Login Attempts in Active Directory</em> fired.</li>
+<li><strong>Triage:</strong> Pivot by <code>user.name : Guest</code>; check for 4624 successes</li>
+<li><strong>Contain:</strong> Block offending IP/range; ensure Guest is disabled.</li>
+<li><strong>Eradication/Recovery:</strong> Scan/isolate source host. Enforce deny-logon for Guests</li>
 </ul>
-<h2 id="playbook-web-shell-on-dvwa">Playbook: Web Shell on DVWA<a class="headerlink" href="#playbook-web-shell-on-dvwa" title="Permanent link">&para;</a></h2>
+<h2 id="playbook-kerberoast-of-svc-test-t1558003-t1110002-t1078002">Playbook: Kerberoast of svc-test (T1558.003 &amp; T1110.002 &amp; T1078.002)<a class="headerlink" href="#playbook-kerberoast-of-svc-test-t1558003-t1110002-t1078002" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Trigger:</strong> Suricata + Zeek HTTP anomaly.</li>
-<li><strong>Triage:</strong> Pull web access logs, identify upload, carve sample, VT scan.</li>
-<li><strong>Contain:</strong> Disable NAT to DVWA, rotate credentials, snapshot for forensics.</li>
-<li><strong>Lessons Learned:</strong> Tighten egress, add WAF signatures, improve upload filtering.</li>
+<li><strong>Trigger:</strong> Detection rule <em>TGS Request Not From DC</em> fired.</li>
+<li><strong>Triage:</strong> Summarize <code>event.code : 4769</code> by src/crypto/SPN.</li>
+<li><strong>Contain:</strong> Isolate source; rotate svc-test, deny delegation.</li>
+<li><strong>Eradication/Recovery:</strong> Remove creds/tickets on source</li>
+</ul>
+<h2 id="playbook-upload-of-sharphound-t1105-t1047">Playbook: Upload of SharpHound (T1105 &amp; T1047)<a class="headerlink" href="#playbook-upload-of-sharphound-t1105-t1047" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Trigger:</strong> Detection rule <em>SharpHound Uploaded</em> fired.</li>
+<li><strong>Triage:</strong> Pull parent tree; check WinRM activity.</li>
+<li><strong>Contain:</strong> Isolate endpoint; kill SharpHound/PS sessions; reset used creds.</li>
+<li><strong>Eradication/Recovery:</strong> Remove binaries/Zips; restrict/disable WinRM.</li>
+</ul>
+<h2 id="playbook-dcsync-t1003006-t1078002">Playbook: DCSync (T1003.006 &amp; T1078.002)<a class="headerlink" href="#playbook-dcsync-t1003006-t1078002" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Trigger:</strong> Detection rule <em>Active Directory Replication from Non Machine Account</em> fired.</li>
+<li><strong>Triage:</strong> Identify account/host; recent 4672/4728 events</li>
+<li><strong>Contain:</strong> Disable the account; isolate source; remove replication perms.</li>
+<li><strong>Eradication/Recovery:</strong> Compromise assessment</li>
+</ul>
+<h2 id="playbook-pass-the-hash-to-login-as-domain-admin-t1550002-t1021006">Playbook: Pass-the-hash to Login as Domain Admin (T1550.002 &amp; T1021.006)<a class="headerlink" href="#playbook-pass-the-hash-to-login-as-domain-admin-t1550002-t1021006" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Trigger:</strong> Detection rule <em>Admininstrator NTLM Network Login</em> fired.</li>
+<li><strong>Triage:</strong> Review 4624 details, map source host legitimacy.</li>
+<li><strong>Contain:</strong> Rotate DA creds</li>
+<li><strong>Eradication/Recovery:</strong> Disable built-in DA where possible; alert on DA NTLM Type 3</li>
 </ul>
 
 
@@ -775,10 +1105,10 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "content.code.copy"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "content.code.copy"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      <script src="../../assets/javascripts/bundle.92b07e13.min.js"></script>
       
     
   <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});

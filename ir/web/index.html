@@ -6,23 +6,25 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Hands-on SOC homelab: Security Onion, AD, DMZ honeypot, ATT&CK-mapped detections.">
+        <meta name="description" content="Devin's Hands-on SOC homelab: Security Onion, AD, DMZ honeypot, ATT&CK-mapped detections.">
       
       
       
       
+        <link rel="prev" href="../AD/">
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.17">
     
     
       
-        <title>Results & Lessons - Devin's SOC Homelab</title>
+        <title>Web Server Incident Response - Devin's SOC Homelab</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
       
       
 
@@ -41,16 +43,16 @@
       
     
     
-      <link rel="stylesheet" href="../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
     
     
     
-   <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
     html.glightbox-open { overflow: initial; height: 100%; }
     .gslide-title { margin-top: 0px; user-select: text; }
     .gslide-desc { color: #666; user-select: text; }
@@ -59,7 +61,7 @@
     .gdesc-inner { font-size: 0.75rem; }
     body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
     body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     <body dir="ltr">
@@ -71,7 +73,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#results-lessons" class="md-skip">
+        <a href="#web-server-ir-playbooks" class="md-skip">
           Skip to content
         </a>
       
@@ -85,7 +87,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="Devin&#39;s SOC Homelab" class="md-header__button md-logo" aria-label="Devin's SOC Homelab" data-md-component="logo">
+    <a href="../.." title="Devin&#39;s SOC Homelab" class="md-header__button md-logo" aria-label="Devin's SOC Homelab" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -105,7 +107,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Results & Lessons
+              Web Server Incident Response
             
           </span>
         </div>
@@ -178,7 +180,7 @@
   
   
     <li class="md-tabs__item">
-      <a href=".." class="md-tabs__link">
+      <a href="../.." class="md-tabs__link">
         
   
   
@@ -197,7 +199,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../topology/" class="md-tabs__link">
+      <a href="../../topology/" class="md-tabs__link">
         
   
   
@@ -218,7 +220,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../vm/security-onion/" class="md-tabs__link">
+        <a href="../../vm/security-onion/" class="md-tabs__link">
           
   
   
@@ -237,17 +239,20 @@
   
   
   
-    <li class="md-tabs__item">
-      <a href="../attacks/" class="md-tabs__link">
-        
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../attacks/AD/" class="md-tabs__link">
+          
   
   
     
   
   Attack Scenarios (MITRE)
 
-      </a>
-    </li>
+        </a>
+      </li>
+    
   
 
       
@@ -256,17 +261,20 @@
   
   
   
-    <li class="md-tabs__item">
-      <a href="../detections/" class="md-tabs__link">
-        
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../detections/AD/" class="md-tabs__link">
+          
   
   
     
   
   Detections & Dashboards
 
-      </a>
-    </li>
+        </a>
+      </li>
+    
   
 
       
@@ -274,18 +282,23 @@
   
   
   
+    
   
-    <li class="md-tabs__item">
-      <a href="../ir/" class="md-tabs__link">
-        
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../AD/" class="md-tabs__link">
+          
   
   
     
   
   IR Playbooks
 
-      </a>
-    </li>
+        </a>
+      </li>
+    
   
 
       
@@ -311,7 +324,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Devin&#39;s SOC Homelab" class="md-nav__button md-logo" aria-label="Devin's SOC Homelab" data-md-component="logo">
+    <a href="../.." title="Devin&#39;s SOC Homelab" class="md-nav__button md-logo" aria-label="Devin's SOC Homelab" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -329,7 +342,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -351,7 +364,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../topology/" class="md-nav__link">
+      <a href="../../topology/" class="md-nav__link">
         
   
   
@@ -426,7 +439,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vm/security-onion/" class="md-nav__link">
+      <a href="../../vm/security-onion/" class="md-nav__link">
         
   
   
@@ -449,7 +462,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vm/dc/" class="md-nav__link">
+      <a href="../../vm/dc/" class="md-nav__link">
         
   
   
@@ -472,7 +485,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vm/workstation/" class="md-nav__link">
+      <a href="../../vm/workstation/" class="md-nav__link">
         
   
   
@@ -495,7 +508,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vm/webserver/" class="md-nav__link">
+      <a href="../../vm/webserver/" class="md-nav__link">
         
   
   
@@ -524,9 +537,31 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../attacks/" class="md-nav__link">
+    
+    
+      
         
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
   
   
   <span class="md-ellipsis">
@@ -535,7 +570,65 @@
   </span>
   
 
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Attack Scenarios (MITRE)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../attacks/AD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Active Directory
+    
+  </span>
+  
+
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../attacks/web/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Web Server
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -546,9 +639,31 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../detections/" class="md-nav__link">
+    
+    
+      
         
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
   
   
   <span class="md-ellipsis">
@@ -557,7 +672,65 @@
   </span>
   
 
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Detections & Dashboards
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../detections/AD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Active Directory
+    
+  </span>
+  
+
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../detections/web/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Web Server
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -566,11 +739,38 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../ir/" class="md-nav__link">
+  
+    
+    
+      
         
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
   
   
   <span class="md-ellipsis">
@@ -579,7 +779,143 @@
   </span>
   
 
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            IR Playbooks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Active Directory
+    
+  </span>
+  
+
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Web Server
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Web Server
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#playbook-directory-busting-t15950031" class="md-nav__link">
+    <span class="md-ellipsis">
+      Playbook: Directory Busting (T1595.0031)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#playbook-reverse-shell-upload-t1105-t1190" class="md-nav__link">
+    <span class="md-ellipsis">
+      Playbook: Reverse Shell Upload (T1105 &amp; T1190)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#playbook-reverse-shell-connection-t1505003-t1071001" class="md-nav__link">
+    <span class="md-ellipsis">
+      Playbook: Reverse Shell Connection (T1505.003 &amp; T1071.001)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#playbook-download-linpeas-t1105" class="md-nav__link">
+    <span class="md-ellipsis">
+      Playbook: Download Linpeas (T1105)
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -611,27 +947,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coverage-snapshot" class="md-nav__link">
+  <a href="#playbook-directory-busting-t15950031" class="md-nav__link">
     <span class="md-ellipsis">
-      Coverage snapshot
+      Playbook: Directory Busting (T1595.0031)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#metrics" class="md-nav__link">
+  <a href="#playbook-reverse-shell-upload-t1105-t1190" class="md-nav__link">
     <span class="md-ellipsis">
-      Metrics
+      Playbook: Reverse Shell Upload (T1105 &amp; T1190)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-i-would-improve-next" class="md-nav__link">
+  <a href="#playbook-reverse-shell-connection-t1505003-t1071001" class="md-nav__link">
     <span class="md-ellipsis">
-      What I would improve next
+      Playbook: Reverse Shell Connection (T1505.003 &amp; T1071.001)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#playbook-download-linpeas-t1105" class="md-nav__link">
+    <span class="md-ellipsis">
+      Playbook: Download Linpeas (T1105)
     </span>
   </a>
   
@@ -653,65 +998,34 @@
 
 
 
-<h1 id="results-lessons">Results &amp; Lessons<a class="headerlink" href="#results-lessons" title="Permanent link">&para;</a></h1>
-<h2 id="coverage-snapshot">Coverage snapshot<a class="headerlink" href="#coverage-snapshot" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Tactic</th>
-<th style="text-align: right;">Techniques Attempted</th>
-<th style="text-align: right;">Detected</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Initial Access</td>
-<td style="text-align: right;"><em>TBD</em></td>
-<td style="text-align: right;"><em>TBD</em></td>
-<td>DMZ NAT logs + Suricata</td>
-</tr>
-<tr>
-<td>Execution</td>
-<td style="text-align: right;"><em>TBD</em></td>
-<td style="text-align: right;"><em>TBD</em></td>
-<td>PowerShell, MSI</td>
-</tr>
-<tr>
-<td>Persistence</td>
-<td style="text-align: right;"><em>TBD</em></td>
-<td style="text-align: right;"><em>TBD</em></td>
-<td>Run keys, services</td>
-</tr>
-<tr>
-<td>Credential Access</td>
-<td style="text-align: right;"><em>TBD</em></td>
-<td style="text-align: right;"><em>TBD</em></td>
-<td>LSASS, NTDS.dit</td>
-</tr>
-<tr>
-<td>Lateral Movement</td>
-<td style="text-align: right;"><em>TBD</em></td>
-<td style="text-align: right;"><em>TBD</em></td>
-<td>SMB/RDP, admin shares</td>
-</tr>
-<tr>
-<td>Exfiltration</td>
-<td style="text-align: right;"><em>TBD</em></td>
-<td style="text-align: right;"><em>TBD</em></td>
-<td>DNS/HTTP anomalies</td>
-</tr>
-</tbody>
-</table>
-<h2 id="metrics">Metrics<a class="headerlink" href="#metrics" title="Permanent link">&para;</a></h2>
+<h1 id="web-server-ir-playbooks">Web Server IR Playbooks<a class="headerlink" href="#web-server-ir-playbooks" title="Permanent link">&para;</a></h1>
+<h2 id="playbook-directory-busting-t15950031">Playbook: Directory Busting (T1595.0031)<a class="headerlink" href="#playbook-directory-busting-t15950031" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Detections fired:</strong> <em>TBD</em></li>
-<li><strong>False positives tuned:</strong> <em>TBD</em></li>
-<li><strong>Mean time to detect (MTTD):</strong> <em>TBD</em></li>
+<li><strong>Trigger:</strong> Detection rule <em>WEB-APP possible directory busting</em> fired.</li>
+<li><strong>Triage:</strong> Pivot by src</li>
+<li><strong>Contain:</strong> Block or throttle IP/range via WAF</li>
+<li><strong>Eradication/Recovery:</strong> Ensure no follow-on to writable endpoints.</li>
 </ul>
-<h2 id="what-i-would-improve-next">What I would improve next<a class="headerlink" href="#what-i-would-improve-next" title="Permanent link">&para;</a></h2>
+<h2 id="playbook-reverse-shell-upload-t1105-t1190">Playbook: Reverse Shell Upload (T1105 &amp; T1190)<a class="headerlink" href="#playbook-reverse-shell-upload-t1105-t1190" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Turning the web server into a honey pot by moving it into a segmented network</li>
+<li><strong>Trigger:</strong> Detection rule <em>Zeek HTTP Transfer of PHP File</em> fired.</li>
+<li><strong>Triage:</strong> Pivot by <code>user.name : Guest</code>; check for 4624 successes</li>
+<li><strong>Contain:</strong> Block offending IP/range; ensure Guest is disabled.</li>
+<li><strong>Eradication/Recovery:</strong> Ensure no follow-on to writable endpoints.</li>
+</ul>
+<h2 id="playbook-reverse-shell-connection-t1505003-t1071001">Playbook: Reverse Shell Connection (T1505.003 &amp; T1071.001)<a class="headerlink" href="#playbook-reverse-shell-connection-t1505003-t1071001" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Trigger:</strong> Detection rule <em>Zeek Outbound TCP 9001 (Potential PHP Reverse Shell)</em> fired.</li>
+<li><strong>Triage:</strong> Enumerate related conns; identify owning process/socket on host.</li>
+<li><strong>Contain:</strong> Block egress to dst/port</li>
+<li><strong>Eradication/Recovery:</strong> Kill session/process; remove webshell.</li>
+</ul>
+<h2 id="playbook-download-linpeas-t1105">Playbook: Download Linpeas (T1105)<a class="headerlink" href="#playbook-download-linpeas-t1105" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Trigger:</strong> Detection rule <em>LINUX linpeas download via wget</em> fired.</li>
+<li><strong>Triage:</strong> Confirm server outbound GET of linpeas.sh with Zeek correlation</li>
+<li><strong>Contain:</strong> Block outbound HTTP from except allowlist; isolate if found/executed.</li>
+<li><strong>Eradication/Recovery:</strong> Remove artifact; sweep <code>/tmp</code> / <code>/var/tmp</code> and check sudo/setuid changes</li>
 </ul>
 
 
@@ -764,10 +1078,10 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "content.code.copy"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "content.code.copy"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      <script src="../../assets/javascripts/bundle.92b07e13.min.js"></script>
       
     
   <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});

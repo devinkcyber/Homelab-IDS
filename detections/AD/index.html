@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../workstation/">
+        <link rel="prev" href="../../attacks/web/">
       
       
-        <link rel="next" href="../../attacks/AD/">
+        <link rel="next" href="../web/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Webserver (DVWA) - Devin's SOC Homelab</title>
+        <title>Active Directory - Devin's SOC Homelab</title>
       
     
     
@@ -75,7 +75,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ubuntu-webserver-dvwa" class="md-skip">
+        <a href="#active-directory" class="md-skip">
           Skip to content
         </a>
       
@@ -109,7 +109,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Webserver (DVWA)
+              Active Directory
             
           </span>
         </div>
@@ -218,13 +218,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../security-onion/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../vm/security-onion/" class="md-tabs__link">
           
   
   
@@ -264,11 +262,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../detections/AD/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
           
   
   
@@ -385,10 +385,8 @@
       
   
   
-    
   
   
-  
     
     
       
@@ -404,22 +402,19 @@
     
     
       
-        
-        
-      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   
@@ -432,7 +427,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             VM Builds
@@ -446,7 +441,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security-onion/" class="md-nav__link">
+      <a href="../../vm/security-onion/" class="md-nav__link">
         
   
   
@@ -469,7 +464,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dc/" class="md-nav__link">
+      <a href="../../vm/dc/" class="md-nav__link">
         
   
   
@@ -492,7 +487,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../workstation/" class="md-nav__link">
+      <a href="../../vm/workstation/" class="md-nav__link">
         
   
   
@@ -512,32 +507,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Webserver (DVWA)
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../vm/webserver/" class="md-nav__link">
         
   
   
@@ -548,71 +521,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#purpose" class="md-nav__link">
-    <span class="md-ellipsis">
-      Purpose
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#specs" class="md-nav__link">
-    <span class="md-ellipsis">
-      Specs
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#build-notes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Build Notes
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#validation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Validation
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#install-step-by-step" class="md-nav__link">
-    <span class="md-ellipsis">
-      Install (step-by-step)
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -731,8 +639,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -744,19 +654,22 @@
     
     
       
+        
+        
+      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
             
   
   
@@ -769,7 +682,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             Detections & Dashboards
@@ -780,10 +693,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../detections/AD/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Active Directory
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -794,6 +729,107 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#brute-forcing-guest-account-t1110001" class="md-nav__link">
+    <span class="md-ellipsis">
+      Brute Forcing Guest Account (T1110.001)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kerberoast-of-svc-test-t1558003-t1110002-t1078002" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kerberoast of svc-test (T1558.003 &amp; T1110.002 &amp; T1078.002)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upload-of-sharphound-t1105-t1047" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upload of SharpHound (T1105 &amp; T1047)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dcsync-t1003006-t1078002" class="md-nav__link">
+    <span class="md-ellipsis">
+      DCSync (T1003.006 &amp; T1078.002)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pass-the-hash-to-login-as-domain-admin-t1550002-t1021006" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pass-the-hash to Login as Domain Admin (T1550.002 &amp; T1021.006)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dashboard-successfulfailed-login-attempts-timeline-bar-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dashboard: Successful/Failed Login Attempts Timeline Bar Graph
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dashboard-tgs-ticket-requests-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dashboard: TGS Ticket Requests Table
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dashboard-windows-remote-management-logins-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dashboard: Windows Remote Management Logins Table
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dashboard-login-attempts-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dashboard: Login Attempts Table
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -806,7 +842,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../detections/web/" class="md-nav__link">
+      <a href="../web/" class="md-nav__link">
         
   
   
@@ -958,45 +994,81 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#purpose" class="md-nav__link">
+  <a href="#brute-forcing-guest-account-t1110001" class="md-nav__link">
     <span class="md-ellipsis">
-      Purpose
+      Brute Forcing Guest Account (T1110.001)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#specs" class="md-nav__link">
+  <a href="#kerberoast-of-svc-test-t1558003-t1110002-t1078002" class="md-nav__link">
     <span class="md-ellipsis">
-      Specs
+      Kerberoast of svc-test (T1558.003 &amp; T1110.002 &amp; T1078.002)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#build-notes" class="md-nav__link">
+  <a href="#upload-of-sharphound-t1105-t1047" class="md-nav__link">
     <span class="md-ellipsis">
-      Build Notes
+      Upload of SharpHound (T1105 &amp; T1047)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#validation" class="md-nav__link">
+  <a href="#dcsync-t1003006-t1078002" class="md-nav__link">
     <span class="md-ellipsis">
-      Validation
+      DCSync (T1003.006 &amp; T1078.002)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#install-step-by-step" class="md-nav__link">
+  <a href="#pass-the-hash-to-login-as-domain-admin-t1550002-t1021006" class="md-nav__link">
     <span class="md-ellipsis">
-      Install (step-by-step)
+      Pass-the-hash to Login as Domain Admin (T1550.002 &amp; T1021.006)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dashboard-successfulfailed-login-attempts-timeline-bar-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dashboard: Successful/Failed Login Attempts Timeline Bar Graph
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dashboard-tgs-ticket-requests-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dashboard: TGS Ticket Requests Table
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dashboard-windows-remote-management-logins-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dashboard: Windows Remote Management Logins Table
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dashboard-login-attempts-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dashboard: Login Attempts Table
     </span>
   </a>
   
@@ -1018,54 +1090,123 @@
 
 
 
-<h1 id="ubuntu-webserver-dvwa">Ubuntu – Webserver (DVWA)<a class="headerlink" href="#ubuntu-webserver-dvwa" title="Permanent link">&para;</a></h1>
-<h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
-<p>Intentionally vulnerable web app.</p>
-<h2 id="specs">Specs<a class="headerlink" href="#specs" title="Permanent link">&para;</a></h2>
-<ul>
-<li>IP: <code>192.168.26.10</code></li>
-<li>Services: Nginx/Apache, PHP/MySQL, DVWA</li>
-<li>Security: Minimal hardening</li>
-<li>Logging: Event forwarding via Elastic Agent</li>
-<li>8gb of memory</li>
-</ul>
-<h2 id="build-notes">Build Notes<a class="headerlink" href="#build-notes" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Install Ubuntu Server → static IP <code>192.168.26.10</code>.</li>
-<li>Install DVWA stack (web/PHP/MySQL), set DVWA security level to <em>low</em> for testing.</li>
-<li>Elastic Agent enrolled; ship nginx/apache, auth, and system logs to Fleet.</li>
-<li>Expose via firewall NAT: WAN → 80/443 → <code>192.168.26.10</code>.</li>
-</ol>
-<h2 id="validation">Validation<a class="headerlink" href="#validation" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Confirm Kibana logs:
-<div class="highlight"><pre><span></span><code>user.name : webadmin
-</code></pre></div>
-<a class="glightbox" href="../img/webserver/a.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="10" loading="lazy" src="../img/webserver/a.png" /></a></li>
-<li>Confirm DVWA is up and running: Go to http://192.168.25.142/DVWA
-<a class="glightbox" href="../img/webserver/13.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="13" loading="lazy" src="../img/webserver/13.png" /></a></li>
-</ul>
-<h2 id="install-step-by-step">Install (step-by-step)<a class="headerlink" href="#install-step-by-step" title="Permanent link">&para;</a></h2>
-<p><Add NAT/port‑forward rule, DVWA login, alerts>
-<a class="glightbox" href="../img/webserver/1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="1" loading="lazy" src="../img/webserver/1.png" /></a>
-<a class="glightbox" href="../img/webserver/2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="2" loading="lazy" src="../img/webserver/2.png" /></a>
-<a class="glightbox" href="../img/webserver/3.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="3" loading="lazy" src="../img/webserver/3.png" /></a>
-<a class="glightbox" href="../img/webserver/4.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="4" loading="lazy" src="../img/webserver/4.png" /></a>
-<a class="glightbox" href="../img/webserver/5.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="5" loading="lazy" src="../img/webserver/5.png" /></a>
-<a class="glightbox" href="../img/webserver/6.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="6" loading="lazy" src="../img/webserver/6.png" /></a>
-<a class="glightbox" href="../img/webserver/7.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="7" loading="lazy" src="../img/webserver/7.png" /></a>
-<a class="glightbox" href="../img/webserver/8.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="8" loading="lazy" src="../img/webserver/8.png" /></a>
-<a class="glightbox" href="../img/webserver/9.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="9" loading="lazy" src="../img/webserver/9.png" /></a>
-<a class="glightbox" href="../img/webserver/10.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="10" loading="lazy" src="../img/webserver/10.png" /></a>
-<a class="glightbox" href="../img/webserver/11.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="11" loading="lazy" src="../img/webserver/11.png" /></a>
-<a class="glightbox" href="../img/webserver/12.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="12" loading="lazy" src="../img/webserver/12.png" /></a>
-<a class="glightbox" href="../img/webserver/13.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="13" loading="lazy" src="../img/webserver/13.png" /></a>
-<a class="glightbox" href="../img/webserver/14.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="14" loading="lazy" src="../img/webserver/14.png" /></a>
-<a class="glightbox" href="../img/webserver/15.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="15" loading="lazy" src="../img/webserver/15.png" /></a>
-<a class="glightbox" href="../img/webserver/16.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="16" loading="lazy" src="../img/webserver/16.png" /></a>
-<a class="glightbox" href="../img/webserver/20.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="20" loading="lazy" src="../img/webserver/20.png" /></a>
-<a class="glightbox" href="../img/webserver/21.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="21" loading="lazy" src="../img/webserver/21.png" /></a>
-<a class="glightbox" href="../img/webserver/22.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="22" loading="lazy" src="../img/webserver/22.png" /></a></p>
+<h1 id="active-directory">Active Directory<a class="headerlink" href="#active-directory" title="Permanent link">&para;</a></h1>
+<p>This section documents custom sigma rules and visualizations for my Active Directory environment. Each item includes the <strong>ATT&amp;CK technique</strong>, <strong>signal logic</strong>, and <strong>validation evidence</strong>.</p>
+<h2 id="brute-forcing-guest-account-t1110001">Brute Forcing Guest Account (T1110.001)<a class="headerlink" href="#brute-forcing-guest-account-t1110001" title="Permanent link">&para;</a></h2>
+<p><strong>Sigma rule (winlog)</strong>:
+<div class="highlight"><pre><span></span><code>title: &#39;Multiple Failed Login Attempts in Active Directory&#39;
+id: 624d9509-7f05-47e7-932e-078e145a7a42
+status: &#39;stable&#39;
+description: &#39;Detects multiple failed login attempts (Event ID 4625) that may indicate brute forcing against Active Directory.&#39;
+author: &#39;Devin&#39;
+date: &#39;2025/10/18&#39;
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4625
+condition: selection
+level: &#39;high&#39;
+</code></pre></div></p>
+<p><strong>Validation:</strong> Ran <code>nxc ldap 192.168.25.137 -u 'Guest' -p /usr/share/wordlists/rockyou.txt --ignore-pw-decoding</code>; alert fired and triaged.
+<a class="glightbox" href="../img/1.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="1" loading="lazy" src="../img/1.png" /></a></p>
+<h2 id="kerberoast-of-svc-test-t1558003-t1110002-t1078002">Kerberoast of svc-test (T1558.003 &amp; T1110.002 &amp; T1078.002)<a class="headerlink" href="#kerberoast-of-svc-test-t1558003-t1110002-t1078002" title="Permanent link">&para;</a></h2>
+<p><strong>Sigma rule (winlog)</strong>:
+<div class="highlight"><pre><span></span><code>title: &#39;TGS Request Not From DC&#39;
+id: a85a9ac4-a6be-440a-9b63-46943da0fe36
+status: &#39;stable&#39;
+description: &#39;Indicative of potential kerberoast attack.&#39;
+author: &#39;Devin&#39;
+date: &#39;2025/10/18&#39;
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4769
+  name:
+    RelatedUser: &#39;WIN-LLBIAPV2E9D$&#39;
+  condition: selection and not name
+level: &#39;high&#39;
+</code></pre></div></p>
+<p><strong>Validation:</strong> Ran <code>nxc ldap 192.168.25.137 -u 'Bob' -p '_________' --kerberoasting kerbroast.txt</code>; alert fired and triaged.
+<a class="glightbox" href="../img/2.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="2" loading="lazy" src="../img/2.png" /></a></p>
+<h2 id="upload-of-sharphound-t1105-t1047">Upload of SharpHound (T1105 &amp; T1047)<a class="headerlink" href="#upload-of-sharphound-t1105-t1047" title="Permanent link">&para;</a></h2>
+<p><strong>Sigma rule (sysmon)</strong>:
+<div class="highlight"><pre><span></span><code>title: &#39;SharpHound Uploaded&#39;
+id: 6bc8dee8-a7d2-409a-af69-473a9ab94dfa
+status: &#39;stable&#39;
+description: &#39;SharpHound was uploaded through remote management shell&#39;
+author: &#39;Devin&#39;
+date: &#39;2025/10/18&#39;
+logsource:
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    EventID: 11
+    Image|endswith : &#39;\wsmprovhost.exe&#39;
+    TargetFilename|endswith : &#39;\SharpHound.exe&#39;
+condition: selection
+level: &#39;high&#39;
+</code></pre></div></p>
+<p><strong>Validation:</strong> Ran <code>upload SharpHound.exe</code> from an evil-winrm shell; alert fired and triaged.
+<a class="glightbox" href="../img/3.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="3" loading="lazy" src="../img/3.png" /></a></p>
+<h2 id="dcsync-t1003006-t1078002">DCSync (T1003.006 &amp; T1078.002)<a class="headerlink" href="#dcsync-t1003006-t1078002" title="Permanent link">&para;</a></h2>
+<p><strong>Sigma rule (winlog)</strong>:
+<div class="highlight"><pre><span></span><code>title: &#39;Active Directory Replication from Non Machine Account&#39;
+id: 88e4eb0a-8d72-4164-87d3-d5101e97a3b4
+status: &#39;stable&#39;
+description: |
+Triggers after Active Directory Replication for a non machine account (indicative of a DCSYNC attack)
+author: &#39;Devin&#39;
+date: &#39;2025/10/20&#39;
+logsource:
+  service: security
+  product: windows
+detection:
+  selection:
+    EventID: 4662
+    winlog.event_data.ObjectServer: DS
+    winlog.event_data.Properties|contains: 1131f6aa-9c07-11d1-f79f-00c04fc2dcd2
+  dc:
+    User: WIN-LLBIAPV2E9D$
+  condition: selection and not dc
+level: &#39;critical&#39;
+</code></pre></div></p>
+<p><strong>Validation:</strong> Ran <code>impacket-secretsdump -just-dc LAB/svc-test:'_________'@WIN-LLBIAPV2E9D.lab.local</code>; alert fired and triaged.
+<a class="glightbox" href="../img/4.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="4" loading="lazy" src="../img/4.png" /></a></p>
+<h2 id="pass-the-hash-to-login-as-domain-admin-t1550002-t1021006">Pass-the-hash to Login as Domain Admin (T1550.002 &amp; T1021.006)<a class="headerlink" href="#pass-the-hash-to-login-as-domain-admin-t1550002-t1021006" title="Permanent link">&para;</a></h2>
+<p><strong>Sigma rule (sysmon)</strong>:
+<div class="highlight"><pre><span></span><code>title: &#39;Admininstrator NTLM Network Login&#39;
+id: 6b53b892-2e05-44cd-bcfc-e274ee696ea9
+status: &#39;stable&#39;
+description: &#39;Detects the Administrator account completing an NTLM network login, possibly indicating a pass-the-hash attack&#39;
+author: &#39;Devin&#39;
+date: &#39;2025/10/18&#39;
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4624
+    LogonType: &#39;3&#39;
+    AuthenticationPackageName: NTLM
+    TargetUserName: Administrator
+  condition: selection
+level: &#39;high&#39;
+</code></pre></div></p>
+<p><strong>Validation:</strong> Ran <code>evil-winrm -i 192.168.25.137 -u 'Administrator' -H '__________________’</code>; alert fired and triaged.
+<a class="glightbox" href="../img/5.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="5" loading="lazy" src="../img/5.png" /></a></p>
+<h2 id="dashboard-successfulfailed-login-attempts-timeline-bar-graph">Dashboard: Successful/Failed Login Attempts Timeline Bar Graph<a class="headerlink" href="#dashboard-successfulfailed-login-attempts-timeline-bar-graph" title="Permanent link">&para;</a></h2>
+<p><a class="glightbox" href="../img/10.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="2" loading="lazy" src="../img/10.png" /></a></p>
+<h2 id="dashboard-tgs-ticket-requests-table">Dashboard: TGS Ticket Requests Table<a class="headerlink" href="#dashboard-tgs-ticket-requests-table" title="Permanent link">&para;</a></h2>
+<p><a class="glightbox" href="../img/11.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="2" loading="lazy" src="../img/11.png" /></a></p>
+<h2 id="dashboard-windows-remote-management-logins-table">Dashboard: Windows Remote Management Logins Table<a class="headerlink" href="#dashboard-windows-remote-management-logins-table" title="Permanent link">&para;</a></h2>
+<p><a class="glightbox" href="../img/12.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="2" loading="lazy" src="../img/12.png" /></a></p>
+<h2 id="dashboard-login-attempts-table">Dashboard: Login Attempts Table<a class="headerlink" href="#dashboard-login-attempts-table" title="Permanent link">&para;</a></h2>
+<p><a class="glightbox" href="../img/13.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="2" loading="lazy" src="../img/13.png" /></a></p>
 
 
 
