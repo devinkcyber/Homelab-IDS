@@ -8,20 +8,24 @@ title: Webserver (DVWA)
 Intentionally vulnerable web app.
 
 ## Specs
-- IP: `192.168.26.10` (DMZ)
+- IP: `192.168.26.10`
 - Services: Nginx/Apache, PHP/MySQL, DVWA
-- Security: Minimal hardening, **egress restricted**, unique creds
+- Security: Minimal hardening
+- Logging: Event forwarding via Elastic Agent
+- 8gb of memory
 
 ## Build Notes
 1. Install Ubuntu Server → static IP `192.168.26.10`.
 2. Install DVWA stack (web/PHP/MySQL), set DVWA security level to *low* for testing.
 3. Elastic Agent enrolled; ship nginx/apache, auth, and system logs to Fleet.
 4. Expose via firewall NAT: WAN → 80/443 → `192.168.26.10`.
-5. Optional: Suricata inline IPS on DMZ at the firewall.
 
 ## Validation
-- From Internet/Kali: run Nikto, SQLi/XSS probes, file uploads.
-- In Kibana: confirm access logs, WAF/Suricata alerts, and Zeek HTTP logs.
+- Confirm Kibana logs:
+```
+user.name : webadmin
+```
+![10](img/webserver/a.png){ loading=lazy }
 - Confirm DVWA is up and running: Go to http://192.168.25.142/DVWA
 ![13](img/webserver/13.png){ loading=lazy }
 
@@ -43,9 +47,6 @@ Intentionally vulnerable web app.
 ![14](img/webserver/14.png){ loading=lazy }
 ![15](img/webserver/15.png){ loading=lazy }
 ![16](img/webserver/16.png){ loading=lazy }
-![17](img/webserver/17.png){ loading=lazy }
-![18](img/webserver/18.png){ loading=lazy }
-![19](img/webserver/19.png){ loading=lazy }
 ![20](img/webserver/20.png){ loading=lazy }
 ![21](img/webserver/21.png){ loading=lazy }
 ![22](img/webserver/22.png){ loading=lazy }

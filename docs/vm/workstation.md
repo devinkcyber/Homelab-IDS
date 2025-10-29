@@ -5,15 +5,20 @@ title: Workstation
 # Windows 11 – Domain‑Joined Workstation
 
 ## Purpose
-User endpoint targeted for credential theft, lateral movement, and persistence TTPs.
+User endpoint targeted for credential theft and lateral movement.
 
 ## Specs
-- Hostname: `Workstation-A.lab.local` • IP: `192.168.25.141`
-- Elastic Agent installed; optional Sysmon
+- Hostname: `Workstation-A.lab.local`
+- IP: `192.168.25.141`
+- Logging: Sysmon, Windows event forwarding via Elastic Agent
+- 8gb of memory
 
 ## Validation
-- Verify Agent enrolled in Fleet.
-- Generate test telemetry: PowerShell, failed logons, Defender alerts.
+- Confirm Kerberos/NTLM events in Kibana:
+```
+host.name : workstation-a AND event.code : 4624
+```
+![10](img/workstation/a.png){ loading=lazy }
 
 ## Install (step-by-step)
 <Add Fleet agent page, test alerts, KQL snippets>

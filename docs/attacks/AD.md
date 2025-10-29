@@ -2,8 +2,8 @@
 title: Attack Scenarios (MITRE)
 ---
 
-# Attack Scenarios (mapped to MITRE ATT&CK)
-Passwords and hashes have been concealed to retain confidentiality.
+# Active Directory Attack Scenarios (mapped to MITRE ATT&CK)
+<u>**Passwords and hashes have been concealed to retain confidentiality.**</u>
 
 ## <u>Brute Forcing Guest Account</u>
 - **Techniques:** T1110.001 (Brute Force: Password Guessing)

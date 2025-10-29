@@ -8,20 +8,24 @@ title: Domain Controller
 Active Directory domain services; realistic enterprise authentication/authorization traffic.
 
 ## Specs
-- Hostname: `DC01.lab.local` • IP: `192.168.25.137`
+- Hostname: `WIN-LLBIAPV2E9D.lab.local`
+- IP: `192.168.25.137`
 - Roles: AD DS, DNS
-- Logging: Windows event forwarding via Elastic Agent; **Sysmon** (suggested)
+- Logging: Sysmon, Windows event forwarding via Elastic Agent
+- 16gb of memory
 
 ## Build Notes
 1. Install Server 2025 → promote to new forest `lab.local`.
 2. Create OUs (Workstations, Users, Service Accounts).
-3. GPOs for logging/hardening (PowerShell logging, Defender, Sysmon if used).
 
 ## Validation
-- Join `Workstation-A.lab.local` to domain.
-- Confirm Kerberos/NTLM events in Kibana (`event.code: 4624/4625` etc.).
-
-## Introducing Vulnerabilities
+- Join `Workstation-A.lab.local` to domain:
+![1](img/dc/b.png){ loading=lazy }
+- Confirm Kerberos/NTLM events in Kibana:
+```
+event.code: 4624
+```
+![1](img/dc/a.png){ loading=lazy }
 
 ## Install (step-by-step)
 <Add AD Users & Computers, GPOs, sample event queries>

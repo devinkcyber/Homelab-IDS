@@ -1,5 +1,5 @@
 site_name: "Devin's SOC Homelab"
-site_description: "Hands-on SOC homelab: Security Onion, AD, DMZ honeypot, ATT&CK-mapped detections."
+site_description: "Devin's Hands-on SOC homelab: Security Onion, AD, DMZ honeypot, ATT&CK-mapped detections."
 site_url: ""
 repo_url: ""
 
@@ -38,6 +38,12 @@ nav:
       - "Domain Controller": vm/dc.md
       - "Workstation": vm/workstation.md
       - "Webserver (DVWA)": vm/webserver.md
-  - "Attack Scenarios (MITRE)": attacks/index.md
-  - "Detections & Dashboards": detections/index.md
-  - "IR Playbooks": ir/index.md
+  - "Attack Scenarios (MITRE)": 
+      - "Active Directory": attacks/AD.md
+      - "Web Server": attacks/web.md
+  - "Detections & Dashboards":
+      - "Active Directory": detections/AD.md
+      - "Web Server": detections/web.md
+  - "IR Playbooks":
+      - "Active Directory": ir/AD.md
+      - "Web Server": ir/web.md

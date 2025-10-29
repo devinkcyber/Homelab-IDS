@@ -9,18 +9,24 @@ Single pane for network + endpoint telemetry; manage Elastic Agent, build alerts
 
 ## Specs
 - Ubuntu (Security Onion ISO)
-- NICs: **Mgmt** `192.168.25.10/24`, **Sensor-LAN** (no IP)
-- 16gb of memory
+- NICs: **Mgmt** `192.168.25.10/24`, **Sensor-LAN** (No IP)
+- 24gb of memory
 
 ## Install (high‑level)
 1. Deploy VM from SO ISO → Standalone install.
-2. Assign interfaces: `so-mgmt` (IP), `sensor-lan` (no IP).
+2. Assign interfaces: `so-mgmt` (IP), `sensor-lan`(No IP).
 3. Enable Fleet/Elastic.
 
 ## Validation
-- Confirm Zeek logs arrive: `index=zeek*` in Kibana:
-- Confirm Suricata alerts: `index=so-suricata*` and test with Nmap/nikto from Kali:
+- Confirm Zeek logs arrive in Kibana:
+```
+event.module : zeek
+```
+![27](img/securityonion/b.png){ loading=lazy }
+- Confirm Suricata alerts: test with Nmap from Kali:
+![27](img/securityonion/a.png){ loading=lazy }
 - Confirm Elastic Agent heartbeats from each VM:
+![27](img/securityonion/c.png){ loading=lazy }
 - Confirm Security Onion containers are up and running:
 ```
 sudo so-status
