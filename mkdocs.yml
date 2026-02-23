@@ -33,6 +33,7 @@ extra_css:
 nav:
   - "Quick Start": index.md
   - "Topology": topology.md
+  - "Case Studies": case-studies/dcsync.md
   - "VM Builds":
       - "Security Onion": vm/security-onion.md
       - "Domain Controller": vm/dc.md

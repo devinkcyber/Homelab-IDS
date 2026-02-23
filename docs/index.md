@@ -7,7 +7,7 @@ title: Quick Start
 This portfolio documents my **SOC analyst homelab**. It simulates an enterprise network with **Active Directory**, **Security Onion (Zeek + Suricata + Elastic/Fleet/Kibana)**, and an **Ubuntu Webserver**. I perform adversary emulation mapped to **MITRE ATT&CK**, build **detection content**, and practice **incident response**.
 
 !!! tip "How to navigate"
-    Use the left Table of Contents to jump to **VM Builds**, **Detections**, **Attacks (MITRE)**, and **IR Playbooks**. Each section is self‑contained with commands and screenshots.
+    Use the left Table of Contents to jump to **Case Studies**,**VM Builds**, **Detections**, **Attacks (MITRE)**, and **IR Playbooks**. Each section is self‑contained with commands and screenshots.
 
 ## Highlights
 
