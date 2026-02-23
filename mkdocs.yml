@@ -1,5 +1,5 @@
 site_name: "Devin's SOC Homelab"
-site_description: "Devin's Hands-on SOC homelab: Security Onion, AD, DMZ honeypot, ATT&CK-mapped detections."
+site_description: "Devin's Hands-on SOC homelab"
 site_url: ""
 repo_url: ""
 
@@ -33,7 +33,8 @@ extra_css:
 nav:
   - "Quick Start": index.md
   - "Topology": topology.md
-  - "Case Studies": case-studies/dcsync.md
+  - "Case Studies": 
+      - "DCSync": case-studies/dcsync.md
   - "VM Builds":
       - "Security Onion": vm/security-onion.md
       - "Domain Controller": vm/dc.md
