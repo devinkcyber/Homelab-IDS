@@ -6,14 +6,14 @@ title: Web Server Incident Response
 
 ## Playbook: Directory Busting (T1595.0031)
 - **Trigger:** Detection rule *WEB-APP possible directory busting* fired.
-- **Triage:** Pivot by src
+- **Triage:** Pivot by source.ip
 - **Contain:** Block or throttle IP/range via WAF
 - **Eradication/Recovery:** Ensure no follow-on to writable endpoints.
 
 ## Playbook: Reverse Shell Upload (T1105 & T1190)
 - **Trigger:** Detection rule *Zeek HTTP Transfer of PHP File* fired.
-- **Triage:** Pivot by destination.ip:192.168.25.142 and file.extension:php OR file.mime_type:"text/x-php"
-- **Contain:** Block source.ip/range; isolate the webserver if shell activity is suspected; disable the vulnerable upload route.
+- **Triage:** Pivot by destination.ip: 192.168.25.142 and file.mime_type:"text/x-php"
+- **Contain:** Block source.ip/range; isolate the webserver
 - **Eradication/Recovery:** Quarantine/delete the uploaded PHP file(s) (hash first)
 
 ## Playbook: Reverse Shell Connection (T1505.003 & T1071.001)
