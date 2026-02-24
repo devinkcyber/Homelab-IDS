@@ -12,9 +12,9 @@ title: Web Server Incident Response
 
 ## Playbook: Reverse Shell Upload (T1105 & T1190)
 - **Trigger:** Detection rule *Zeek HTTP Transfer of PHP File* fired.
-- **Triage:** Pivot by `user.name : Guest`; check for 4624 successes
-- **Contain:** Block offending IP/range; ensure Guest is disabled.
-- **Eradication/Recovery:** Ensure no follow-on to writable endpoints.
+- **Triage:** Pivot by destination.ip:192.168.25.142 and file.extension:php OR file.mime_type:"text/x-php"
+- **Contain:** Block source.ip/range; isolate the webserver if shell activity is suspected; disable the vulnerable upload route.
+- **Eradication/Recovery:** Quarantine/delete the uploaded PHP file(s) (hash first)
 
 ## Playbook: Reverse Shell Connection (T1505.003 & T1071.001)
 - **Trigger:** Detection rule *Zeek Outbound TCP 9001 (Potential PHP Reverse Shell)* fired.

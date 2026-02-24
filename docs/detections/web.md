@@ -6,7 +6,7 @@ title: Web Server Detections & Dashboards
 
 This section documents custom suricata and sigma rules for my web server. Each item includes the **ATT&CK technique**, **signal logic**, and **validation evidence**.
 
-## Directory Busting (T1595.0031)
+## Directory Busting (T1595.003)
 
 **Suricata rule (inline):**
 ```suricata

@@ -110,7 +110,7 @@ level: 'critical'
 ## Pass-the-hash to Login as Domain Admin (T1550.002 & T1021.006)
 **Sigma rule (sysmon)**:
 ```sysmon
-title: 'Admininstrator NTLM Network Login'
+title: 'Administrator NTLM Network Login'
 id: 6b53b892-2e05-44cd-bcfc-e274ee696ea9
 status: 'stable'
 description: 'Detects the Administrator account completing an NTLM network login, possibly indicating a pass-the-hash attack'

@@ -9,7 +9,6 @@ This portfolio documents my **SOC analyst homelab**. It simulates an enterprise 
 ## Highlights
 
 - **Coverage:** 9 ATT&CK techniques detected
-- **Mean time to detect (MTTD):** 3 minutes and 28 seconds
 - **Platform:** VMware, Windows Server 2025 DC, Windows 11 client, Ubuntu DVWA
 - **Monitoring:** Security Onion (Kibana dashboards, Sysmon logs, Zeek logs, Suricata alerts), Elastic Agent on endpoints
 - **Network:** Isolated **LAN (192.168.25.0/24)**

@@ -8,17 +8,17 @@ title: Webserver (DVWA)
 Intentionally vulnerable web app.
 
 ## Specs
-- IP: `192.168.26.10`
+- IP: `192.168.25.142`
 - Services: Nginx/Apache, PHP/MySQL, DVWA
 - Security: Minimal hardening
 - Logging: Event forwarding via Elastic Agent
 - 8gb of memory
 
 ## Build Notes
-1. Install Ubuntu Server → static IP `192.168.26.10`.
+1. Install Ubuntu Server → static IP `192.168.25.142`.
 2. Install DVWA stack (web/PHP/MySQL), set DVWA security level to *low* for testing.
 3. Elastic Agent enrolled; ship nginx/apache, auth, and system logs to Fleet.
-4. Expose via firewall NAT: WAN → 80/443 → `192.168.26.10`.
+4. Expose via firewall NAT: 80/443 → `192.168.25.142` (host only / isolated).
 
 ## Validation
 - Confirm Kibana logs:
