@@ -4,7 +4,7 @@ title: Web Server Incident Response
 
 # Web Server IR Playbooks
 
-## Playbook: Directory Busting (T1595.0031)
+## Playbook: Directory Busting (T1595.003)
 - **Trigger:** Detection rule *WEB-APP possible directory busting* fired.
 - **Triage:** Pivot by source.ip
 - **Contain:** Block or throttle IP/range via WAF

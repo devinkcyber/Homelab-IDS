@@ -107,6 +107,6 @@ In the case **Comments** tab, I captured:
 ### Fast pivots (KQL examples)
 
 **Replication event slice**
-```kql
+```text title="KQL"
 event.code: 4662 and winlog.event_data.ObjectServer: "DS"
 ```
