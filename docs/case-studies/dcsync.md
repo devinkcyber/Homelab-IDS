@@ -48,7 +48,7 @@ These GUIDs are frequently used to identify replication rights in logs:
 
 ### Where the rule lives in this project
 Full rule + writeup: **Detections → Active Directory**  
-- [`../detections/AD.md`](../detections/AD.md)
+- [`../detections/AD.md`](../detections/AD.md){ loading=lazy }
 
 **High-level logic:**
 - Look for `event.code: 4662`
@@ -63,7 +63,7 @@ Full rule + writeup: **Detections → Active Directory**
 ### 1) Escalate alert to a case
 From **Security → Alerts**, I escalated the alert (“Active Directory Replication from Non Machine Account”) into a new case.
 
-![Escalate alert to new case](img/01-escalate.png)
+![Escalate alert to new case](img/01-escalate.png){ loading=lazy }
 
 ### 2) Triage notes in the case
 In the case **Comments** tab, I captured:
@@ -73,24 +73,24 @@ In the case **Comments** tab, I captured:
 - immediate pivots performed
 - containment decision
 
-![Case comment](img/02-comment.png)
-![Case comment](img/02-comment1.png)
-![Case comment](img/02-comment2.png)
-![Case comment](img/02-comment3.png)
-![Case comment](img/02-comment4.png)
+![Case comment](img/02-comment.png){ loading=lazy }
+![Case comment](img/02-comment1.png){ loading=lazy }
+![Case comment](img/02-comment2.png){ loading=lazy }
+![Case comment](img/02-comment3.png){ loading=lazy }
+![Case comment](img/02-comment4.png){ loading=lazy }
 
 ### 3) Observables
-![Add observables](img/image1.png)
-![Add observables](img/image2.png)
-![Add observables](img/image3.png)
-![Add observables](img/image4.png)
-![Add observables](img/image5.png)
-![Add observables](img/image6.png)
-![Add observables](img/image7.png)
-![Add observables](img/image8.png)
-![Add observables](img/image9.png)
-![Add observables](img/image10.png)
-![Add observables](img/image11.png)
+![Add observables](img/image1.png){ loading=lazy }
+![Add observables](img/image2.png){ loading=lazy }
+![Add observables](img/image3.png){ loading=lazy }
+![Add observables](img/image4.png){ loading=lazy }
+![Add observables](img/image5.png){ loading=lazy }
+![Add observables](img/image6.png){ loading=lazy }
+![Add observables](img/image7.png){ loading=lazy }
+![Add observables](img/image8.png){ loading=lazy }
+![Add observables](img/image9.png){ loading=lazy }
+![Add observables](img/image10.png){ loading=lazy }
+![Add observables](img/image11.png){ loading=lazy }
 ---
 
 ## Triage: what I validated first

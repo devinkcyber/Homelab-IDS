@@ -21,7 +21,7 @@ title: Attack Scenarios (MITRE)
 ![2](img/2.png){ loading=lazy }
 
 
-## <u>ASReproast Domain Account</u>
+## <u>AS-REP Roast Domain Account</u>
 - **Techniques:** T1558.004 (Steal or Forge Kerberos Tickets: AS-REP Roasting), T1110.002 (Brute Force: Password Cracking)
 - **Procedure:**
 
