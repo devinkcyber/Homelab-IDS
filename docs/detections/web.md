@@ -21,7 +21,7 @@ classtype:web-application-attack; sid:100002; rev:2;)
 ## Reverse Shell Upload (T1105 & T1190)
 
 **Sigma rule (inline)**:
-```zeek
+```text title="Sigma rule"
 title: 'Zeek HTTP Transfer of PHP File'
 id: 7a2a8618-9b3c-4ace-bd19-270b4277fbbd
 status: 'stable'
@@ -48,7 +48,7 @@ level: 'high'
 ## Reverse Shell Connection (T1505.003 & T1071.001)
 
 **Sigma rule (inline)**:
-```zeek
+```text title="Sigma rule"
 title: 'Zeek Outbound TCP 9001 (Potential PHP Reverse Shell)'
 id: 0339b149-5d4e-4b36-8b56-c99be0aab027
 status: 'experimental'

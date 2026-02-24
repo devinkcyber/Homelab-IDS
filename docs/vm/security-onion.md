@@ -9,7 +9,7 @@ Single pane for network + endpoint telemetry; manage Elastic Agent, build alerts
 
 ## Specs
 - Ubuntu (Security Onion ISO)
-- NICs: **Mgmt** `192.168.25.10/24`, **Sensor-LAN** (No IP)
+- NICs: **Mgmt** `192.168.25.10`, **Sensor-LAN** (No IP)
 - 24gb of memory
 
 ## Install (high‑level)

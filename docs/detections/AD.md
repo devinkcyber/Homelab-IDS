@@ -9,7 +9,7 @@ This section documents custom sigma rules and visualizations for my Active Direc
 ## Brute Forcing Guest Account (T1110.001)
 
 **Sigma rule (winlog)**:
-```winlog
+```text title="Sigma rule"
 title: 'Multiple Failed Login Attempts in Active Directory'
 id: 624d9509-7f05-47e7-932e-078e145a7a42
 status: 'stable'
@@ -33,7 +33,7 @@ level: 'high'
 ## Kerberoast of svc-test (T1558.003 & T1110.002 & T1078.002)
 
 **Sigma rule (winlog)**:
-```winlog
+```text title="Sigma rule"
 title: 'TGS Request Not From DC'
 id: a85a9ac4-a6be-440a-9b63-46943da0fe36
 status: 'stable'
@@ -58,7 +58,7 @@ level: 'high'
 ## Upload of SharpHound (T1105 & T1047)
 
 **Sigma rule (sysmon)**:
-```sysmon
+```text title="Sigma rule"
 title: 'SharpHound Uploaded'
 id: 6bc8dee8-a7d2-409a-af69-473a9ab94dfa
 status: 'stable'
@@ -82,7 +82,7 @@ level: 'high'
 
 ## DCSync (T1003.006 & T1078.002)
 **Sigma rule (winlog)**:
-```winlog
+```text title="Sigma rule"
 title: 'Active Directory Replication from Non Machine Account'
 id: 88e4eb0a-8d72-4164-87d3-d5101e97a3b4
 status: 'stable'
@@ -109,7 +109,7 @@ level: 'critical'
 
 ## Pass-the-hash to Login as Domain Admin (T1550.002 & T1021.006)
 **Sigma rule (sysmon)**:
-```sysmon
+```text title="Sigma rule"
 title: 'Administrator NTLM Network Login'
 id: 6b53b892-2e05-44cd-bcfc-e274ee696ea9
 status: 'stable'
