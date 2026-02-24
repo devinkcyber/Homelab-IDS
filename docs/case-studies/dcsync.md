@@ -80,13 +80,17 @@ In the case **Comments** tab, I captured:
 ![Case comment](img/02-comment4.png)
 
 ### 3) Observables
-- `user.name` (suspected account)
-- `host.name` (source host)
-- source IP (if available)
-- domain name
-
-![Add observables](img/03-observables.png)
-
+![Add observables](img/image1.png)
+![Add observables](img/image2.png)
+![Add observables](img/image3.png)
+![Add observables](img/image4.png)
+![Add observables](img/image5.png)
+![Add observables](img/image6.png)
+![Add observables](img/image7.png)
+![Add observables](img/image8.png)
+![Add observables](img/image9.png)
+![Add observables](img/image10.png)
+![Add observables](img/image11.png)
 ---
 
 ## Triage: what I validated first
@@ -105,3 +109,4 @@ In the case **Comments** tab, I captured:
 **Replication event slice**
 ```kql
 event.code: 4662 and winlog.event_data.ObjectServer: "DS"
+```

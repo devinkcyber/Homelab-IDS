@@ -4,7 +4,7 @@ title: Quick Start
 
 # Devin's SOC Homelab – Quick Start
 
-This portfolio documents my **SOC analyst homelab**. It simulates an enterprise network with **Active Directory**, **Security Onion (Zeek + Suricata + Elastic/Fleet/Kibana)**, and an **Ubuntu Webserver**. I perform adversary emulation mapped to **MITRE ATT&CK**, build **detection content**, and practice **incident response**.
+This portfolio documents my **SOC analyst homelab**. It simulates an enterprise network with **Active Directory**, **Security Onion (Zeek + Suricata + Elastic/Fleet/Kibana)**, and an **Ubuntu Webserver**. I perform adversary emulation mapped to **MITRE ATT&CK**, build **detection content**, practice **incident response**, and write **case studies**.
 
 ## Highlights
 
