@@ -1,0 +1,18 @@
+/* Small visual polish */
+.md-typeset table th, .md-typeset table td { font-size: .85rem; }
+.md-grid { max-width: 1500px; }
+.md-typeset img,
+.md-typeset figure > img {
+  display: block;
+  margin: 0.75rem auto 1.25rem;
+  max-width: 120%;
+}
+img[loading="lazy"] { max-width: 100%; }
+
+p code, li code {
+  background: #f5ffff;
+  color: #1f3a8b;
+  padding: .15em .4em;
+  border: 1px solid #dbeafe;
+  border-radius: .35em;
+}
