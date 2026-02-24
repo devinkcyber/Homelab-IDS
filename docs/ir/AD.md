@@ -29,7 +29,7 @@ title: Active Directory Incident Response
 - **Eradication/Recovery:** Compromise assessment
 
 ## Playbook: Pass-the-hash to Login as Domain Admin (T1550.002 & T1021.006)
-- **Trigger:** Detection rule *Admininstrator NTLM Network Login* fired.
+- **Trigger:** Detection rule *Administrator NTLM Network Login* fired.
 - **Triage:** Review 4624 details, map source host legitimacy.
 - **Contain:** Rotate DA creds
 - **Eradication/Recovery:** Disable built-in DA where possible; alert on DA NTLM Type 3
