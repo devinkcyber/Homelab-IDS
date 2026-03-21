@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Devin King — SOC Analyst Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">Devin's Homelab</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="lab-environment.html">Lab Environment</a></li>
+            <li><a href="ad-attack-chain.html">AD Attack Chain</a></li>
+            <li><a href="web-attack-chain.html">Web Attack Chain</a></li>
+            <li><a href="detection-rules.html">Custom Detections</a></li>
+            <li><a href="about.html" class="active">About</a></li>
+        </ul>
+        <button class="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="page-content">
+        <div class="container">
+
+            <!-- About Me -->
+            <section id="about-me">
+                <div class="section-header">
+                    <h2>About Me</h2>
+                </div>
+                <p style="color: var(--text-secondary); font-size: 1.05rem; line-height: 1.8; margin-bottom: 2rem;">
+                    Cybersecurity consultant building hands-on SOC skills through a fully instrumented homelab environment. Passionate about threat detection, SIEM engineering, and bridging the gap between red team techniques and blue team detection.
+                </p>
+            </section>
+
+            <!-- What This Project Demonstrates -->
+            <section id="project-demonstrates">
+                <div class="section-header">
+                    <h2>What This Project Demonstrates</h2>
+                </div>
+                <ul style="list-style: none; margin-bottom: 2rem;">
+                    <li style="padding: 0.5rem 0; color: var(--text-secondary); font-size: 0.95rem;">
+                        <span style="color: var(--accent-cyan); margin-right: 0.5rem;">&#9656;</span>
+                        Full-stack SOC visibility across endpoint and network telemetry
+                    </li>
+                    <li style="padding: 0.5rem 0; color: var(--text-secondary); font-size: 0.95rem;">
+                        <span style="color: var(--accent-cyan); margin-right: 0.5rem;">&#9656;</span>
+                        Multi-source correlation (SecurityEvent + Sysmon + MDE + MDI + Security Onion)
+                    </li>
+                    <li style="padding: 0.5rem 0; color: var(--text-secondary); font-size: 0.95rem;">
+                        <span style="color: var(--accent-cyan); margin-right: 0.5rem;">&#9656;</span>
+                        MITRE ATT&amp;CK mapping across 12+ techniques
+                    </li>
+                    <li style="padding: 0.5rem 0; color: var(--text-secondary); font-size: 0.95rem;">
+                        <span style="color: var(--accent-cyan); margin-right: 0.5rem;">&#9656;</span>
+                        Both Windows Active Directory and Linux web server threat detection
+                    </li>
+                    <li style="padding: 0.5rem 0; color: var(--text-secondary); font-size: 0.95rem;">
+                        <span style="color: var(--accent-cyan); margin-right: 0.5rem;">&#9656;</span>
+                        Full detection lifecycle: baseline &#8594; simulate &#8594; detect &#8594; document &#8594; build analytics rules &#8594; build dashboards
+                    </li>
+                </ul>
+            </section>
+
+            <!-- What Recruiters Should Know -->
+            <section id="recruiters">
+                <div class="section-header">
+                    <h2>What Recruiters Should Know</h2>
+                </div>
+                <div class="callout">
+                    <ul>
+                        <li>Both endpoint AND network telemetry for the same attacks</li>
+                        <li>Windows AD + Linux web server attack chains covering broad MITRE ATT&amp;CK coverage</li>
+                        <li>Real attack simulations including RBCD</li>
+                        <li>Full detection lifecycle: baseline &#8594; simulate &#8594; detect &#8594; respond &#8594; remediate</li>
+                        <li>Multi-source correlation demonstrating defense-in-depth in practice</li>
+                        <li>Custom Sentinel analytics rules that were correlated into XDR unified incidents</li>
+                        <li>20+ KQL detection queries across 6 different log sources</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Connect -->
+            <section id="connect">
+                <div class="section-header">
+                    <h2>Connect</h2>
+                </div>
+                <div class="card">
+                    <ul style="list-style: none;">
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid var(--border-color); color: var(--text-secondary); font-size: 0.95rem;">
+                            <strong style="color: var(--text-primary);">LinkedIn:</strong>
+                            <a href="https://www.linkedin.com/in/devinking423/">linkedin.com/in/devinking423/</a>
+                        </li>
+                        <li style="padding: 0.75rem 0; color: var(--text-secondary); font-size: 0.95rem;">
+                            <strong style="color: var(--text-primary);">Email:</strong>
+                            <a href="devinkcyber@proton.me">devinkcyber@proton.me</a>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2026 Devin King.</p>
+        </div>
+    </footer>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" aria-label="Close lightbox">&times;</button>
+        <img id="lightbox-img" src="" alt="Enlarged view">
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

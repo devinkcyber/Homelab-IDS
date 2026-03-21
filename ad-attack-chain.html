@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AD Attack Chain Case Study | SOC Analyst Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- === NAVIGATION === -->
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">Devin's Homelab</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="lab-environment.html">Lab Environment</a></li>
+            <li><a href="ad-attack-chain.html" class="active">AD Attack Chain</a></li>
+            <li><a href="web-attack-chain.html">Web Attack Chain</a></li>
+            <li><a href="detection-rules.html">Custom Detections</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+        <button class="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
+    </nav>
+
+  <!-- === PAGE CONTENT === -->
+  <div class="page-content">
+    <div class="container">
+      <div class="layout-with-toc">
+
+        <!-- === TOC SIDEBAR === -->
+        <aside class="toc-sidebar">
+          <h4>On This Page</h4>
+          <ul>
+            <li><a href="#executive-summary">Executive Summary</a></li>
+            <li><a href="#mitre-mapping">MITRE ATT&CK Mapping</a></li>
+            <li><a href="#detection-walkthrough">Detection Walkthrough</a></li>
+            <li><a href="#phase-1">Phase 1: Brute Force</a></li>
+            <li><a href="#phase-2">Phase 2: SMB Enum</a></li>
+            <li><a href="#phase-3">Phase 3: Lateral Movement</a></li>
+            <li><a href="#phase-4">Phase 4: Kerberoasting</a></li>
+            <li><a href="#phase-5">Phase 5: BloodHound</a></li>
+            <li><a href="#phase-6">Phase 6: RBCD Attack</a></li>
+            <li><a href="#remediation">Remediation</a></li>
+            <li><a href="#lessons-learned">Lessons Learned</a></li>
+          </ul>
+        </aside>
+
+        <!-- === MAIN CONTENT === -->
+        <div class="main-content">
+
+          <!-- === EXECUTIVE SUMMARY === -->
+          <section id="executive-summary">
+            <div class="section-header">
+              <h2>Executive Summary</h2>
+              <p>Active Directory Attack Chain &mdash; Full Kill Chain from Guest Brute Force to Domain Compromise</p>
+            </div>
+
+            <div class="card">
+              <p>On March 19, 2026, Microsoft Defender XDR generated a <span class="severity severity-high">High</span>-severity unified incident (ID 7, Priority 100) titled <strong>"Hands-on keyboard attack was launched from a compromised account."</strong> The incident correlated <strong>29 alerts</strong> across <strong>7 MITRE ATT&CK tactics</strong> &mdash; Initial Access, Execution, Persistence, Privilege Escalation, Credential Access, Discovery, and Lateral Movement &mdash; involving <strong>4 devices</strong> and <strong>4 user accounts</strong>. XDR automatically triggered Attack Disruption to contain the compromised accounts. The investigation revealed a full kill chain from Guest account brute force through RBCD-based domain compromise.</p>
+            </div>
+
+            <div class="stats-bar">
+              <div class="stat-item">
+                <div class="stat-number">29</div>
+                <div class="stat-label">Alerts</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-number">7</div>
+                <div class="stat-label">ATT&CK Tactics</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-number">4</div>
+                <div class="stat-label">Devices</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-number">4</div>
+                <div class="stat-label">Accounts</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-number">6</div>
+                <div class="stat-label">Attack Phases</div>
+              </div>
+            </div>
+          </section>
+          <img src="images/Unified.png">
+          <img src="images/Summary.png">
+
+          <!-- === MITRE ATT&CK MAPPING === -->
+          <section id="mitre-mapping" style="margin-top: 3rem;">
+            <div class="section-header">
+              <h2>MITRE ATT&CK Mapping</h2>
+              <p>Technique coverage across the full attack chain</p>
+            </div>
+
+            <div class="table-wrapper">
+              <table class="mitre-table">
+                <thead>
+                  <tr>
+                    <th>Phase</th>
+                    <th>Tactic</th>
+                    <th>Technique</th>
+                    <th>ID</th>
+                    <th>Data Sources</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Guest Brute Force</td>
+                    <td>Credential Access</td>
+                    <td>Brute Force</td>
+                    <td class="technique-id">T1110.001</td>
+                    <td><code>SecurityEvent 4625/4624</code>, <code>Sysmon EID 3</code></td>
+                  </tr>
+                  <tr>
+                    <td>SMB Share Access</td>
+                    <td>Discovery</td>
+                    <td>Network Share Discovery</td>
+                    <td class="technique-id">T1135 / T1039</td>
+                    <td><code>SecurityEvent 5140/5145</code>, <code>Sysmon EID 1/3</code></td>
+                  </tr>
+                  <tr>
+                    <td>Lateral Movement (Bob)</td>
+                    <td>Lateral Movement</td>
+                    <td>Valid Accounts</td>
+                    <td class="technique-id">T1078.002</td>
+                    <td><code>SecurityEvent 4624</code>, <code>Sysmon EID 1</code></td>
+                  </tr>
+                  <tr>
+                    <td>Kerberoasting</td>
+                    <td>Credential Access</td>
+                    <td>Kerberoasting</td>
+                    <td class="technique-id">T1558.003</td>
+                    <td><code>SecurityEvent 4769</code>, <code>Sysmon EID 1/3</code></td>
+                  </tr>
+                  <tr>
+                    <td>BloodHound Enum</td>
+                    <td>Discovery</td>
+                    <td>Account/Trust Discovery</td>
+                    <td class="technique-id">T1087.002 / T1482</td>
+                    <td><code>Sysmon EID 1/3/22</code>, <code>IdentityQueryEvents</code></td>
+                  </tr>
+                  <tr>
+                    <td>RBCD Attack</td>
+                    <td>Privilege Escalation</td>
+                    <td>Delegation Abuse</td>
+                    <td class="technique-id">T1134.002 / T1550.003</td>
+                    <td><code>SecurityEvent 4741/4662/5136/4769</code>, <code>Sysmon EID 1/3</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+          <img src="images/Workbook.png">
+
+          <!-- === DETECTION WALKTHROUGH === -->
+          <section id="detection-walkthrough" style="margin-top: 3rem;">
+            <div class="section-header">
+              <h2>Phase-by-Phase Detection Walkthrough</h2>
+              <p>Brute Force &rarr; SMB Share Enum &rarr; Lateral Movement &rarr; Kerberoasting &rarr; BloodHound Enumeration &rarr; RBCD Domain Compromise</p>
+            </div>
+
+            <!-- =============================== -->
+            <!-- PHASE 1: BRUTE FORCE            -->
+            <!-- =============================== -->
+            <div id="phase-1" class="collapsible open">
+              <div class="collapsible-header">
+                <span class="phase-tag">T1110.001</span>
+                <h3>Phase 1: Guest Account Brute Force</h3>
+                <span class="collapsible-arrow">&#9654;</span>
+              </div>
+              <div class="collapsible-body">
+                <p>XDR correlated brute force alerts. A custom <strong>"Guest Account Accessed SMB Share"</strong> analytics rule fired at 5:23 PM. The Guest account was brute forced from <code>192.168.25.130</code> with <strong>13 failed attempts over 1 minute</strong> before a successful logon.</p>
+                <img src="images/Custom1.png">
+                <div class="code-block-wrapper">
+                  <div class="code-block-header">
+                    <span>Attack Command</span>
+                  </div>
+                  <pre>nxc ldap 'Guest' -p /usr/share/wordlists/targetedlist.txt</pre>
+                </div>
+
+                <h4 style="margin: 1.5rem 0 0.75rem; color: var(--text-primary);">KQL: Brute Force Detection</h4>
+                <div class="code-block-wrapper">
+                  <div class="code-block-header">
+                    <span>KQL</span>
+                    <button class="copy-btn">Copy</button>
+                  </div>
+                  <pre><code class="language-kql">SecurityEvent
+| where EventID == 4625
+| summarize FailedAttempts = count(),
+        StartTime = min(TimeGenerated),
+        EndTime = max(TimeGenerated)
+    by TargetAccount, IpAddress, Computer
+| where FailedAttempts >= 5</code></pre>
+                </div>
+                <img src="images/Brute1.png">
+                <h4 style="margin: 1.5rem 0 0.75rem; color: var(--text-primary);">KQL: MDI Brute Force Followed by Success</h4>
+                <div class="code-block-wrapper">
+                  <div class="code-block-header">
+                    <span>KQL</span>
+                    <button class="copy-btn">Copy</button>
+                  </div>
+                  <pre><code class="language-kql">IdentityLogonEvents
+| where ActionType == "LogonFailed"
+| where AccountName has "Guest"
+| extend FailCount = AdditionalFields.Count
+| where FailCount >= 5
+| join kind=inner (
+    IdentityLogonEvents
+    | where ActionType == "LogonSuccess"
+    | where AccountName has "Guest"
+    | project AccountName, IPAddress, SuccessTime = Timestamp
+) on AccountName, IPAddress
+| where SuccessTime > Timestamp
+| project AccountName, FailCount, Timestamp, SuccessTime</code></pre>
+                </div>
+
+                <img src="images/Brute2.png">
+
+                <div class="insight-box warning">
+                  <h4>Finding</h4>
+                  <p>The Guest account should be disabled. <strong>Recommendation:</strong> disable the Guest account, enforce account lockout policies, and audit share permissions.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- =============================== -->
+            <!-- PHASE 2: SMB SHARE ENUMERATION  -->
+            <!-- =============================== -->
+            <div id="phase-2" class="collapsible">
+              <div class="collapsible-header">
+                <span class="phase-tag">T1135 / T1039</span>
+                <h3>Phase 2: SMB Share Enumeration</h3>
+                <span class="collapsible-arrow">&#9654;</span>
+              </div>
+              <div class="collapsible-body">
+                <p>The compromised Guest account accessed SMB shares on DC1 and read a file containing <strong>Devin's plaintext password</strong>.</p>
+                <img src="images/Custom1.png">
+                <div class="code-block-wrapper">
+                  <div class="code-block-header">
+                    <span>Attack Commands</span>
+                  </div>
+                  <pre>nxc smb 192.168.25.141 -u 'Guest' -p '...' --shares
+# Then spider_plus for download</pre>
+                </div>
+                <h4 style="margin: 1.5rem 0 0.75rem; color: var(--text-primary);">KQL: SMB Share Access Detection</h4>
+                <div class="code-block-wrapper">
+                  <div class="code-block-header">
+                    <span>KQL</span>
+                    <button class="copy-btn">Copy</button>
+                  </div>
+                  <pre><code class="language-kql">SecurityEvent
+| where EventID == 5145
+| where SubjectUserName has "guest"
+| where ShareName has "DevinStuff"
+| project TimeGenerated, SubjectUserName, ShareName,
+RelativeTargetName, AccessMask, IpAddress
+| order by TimeGenerated asc</code></pre>
+                </div>
+                <img src="images/SMB1.png">
+                <div class="insight-box">
+                  <h4>Analyst Insight</h4>
+                  <p>Sysmon EID 3 misses inbound connections by default, which is why you need <code>SecurityEvent 5145</code> for SMB share access detection.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- =============================== -->
+            <!-- PHASE 3: LATERAL MOVEMENT       -->
+            <!-- =============================== -->
+            <div id="phase-3" class="collapsible">
+              <div class="collapsible-header">
+                <span class="phase-tag">T1078.002</span>
+                <h3>Phase 3: Lateral Movement via Valid Accounts</h3>
+                <span class="collapsible-arrow">&#9654;</span>
+              </div>
+              <div class="collapsible-body">
+                <p>The attacker authenticated as <strong>Devin</strong> from <code>192.168.25.130</code> to <strong>Workstation1</strong> within 50 minutes of stealing credentials. XDR flagged this as a compromised account conducting a hands-on-keyboard attack.</p>
+
+                <img src="images/Lateral.png">
+
+                <h4 style="margin: 1.5rem 0 0.75rem; color: var(--text-primary);">KQL: Lateral Movement Detection</h4>
+                <div class="code-block-wrapper">
+                  <div class="code-block-header">
+                    <span>KQL</span>
+                    <button class="copy-btn">Copy</button>
+                  </div>
+                  <pre><code class="language-kql">SecurityEvent
+| where EventID == 4624
+| where LogonType in (3, 10)
+| where IpAddress has "192.168.25.130"
+| where TargetAccount has "Devin"
+| project TimeGenerated, TargetAccount, IpAddress,
+LogonType, Computer
+| order by TimeGenerated asc</code></pre>
+                </div>
+                <img src="images/Lateral2.png">
+              </div>
+            </div>
+            <!-- =============================== -->
+            <!-- PHASE 4: KERBEROASTING          -->
+            <!-- =============================== -->
+            <div id="phase-4" class="collapsible">
+              <div class="collapsible-header">
+                <span class="phase-tag">T1558.003</span>
+                <h3>Phase 4: Kerberoasting</h3>
+                <span class="collapsible-arrow">&#9654;</span>
+              </div>
+              <div class="collapsible-body">
+                <p>The attacker used NetExec to request Kerberos service tickets with RC4 encryption, then cracked them offline with John the Ripper.</p>
+
+                <div class="code-block-wrapper">
+                  <div class="code-block-header">
+                    <span>Attack Commands</span>
+                  </div>
+                  <pre>nxc ldap 192.168.25.137 -u 'Devin' -p '...' --kerberoasting kerbroast.txt
+john --wordlist=/usr/share/wordlists/rockyou.txt kerbroast.txt</pre>
+                </div>
+
+                <img src="images/Kerberoast1.png">
+
+                <h4 style="margin: 1.5rem 0 0.75rem; color: var(--text-primary);">KQL: Kerberoasting Detection (SecurityEvent 4769)</h4>
+                <div class="code-block-wrapper">
+                  <div class="code-block-header">
+                    <span>KQL</span>
+                    <button class="copy-btn">Copy</button>
+                  </div>
+                  <pre><code class="language-kql">SecurityEvent
+| where EventID == 4769
+| parse EventData with * '&lt;Data Name="TicketEncryptionType"&gt;' TicketEncryptionType '&lt;/Data&gt;' *
+| parse EventData with * '&lt;Data Name="TargetUserName"&gt;' TargetUserName '&lt;/Data&gt;' *
+| where TicketEncryptionType == "0x17"
+| where TargetUserName !has "$"
+| project TimeGenerated, TargetUserName, Computer, TicketEncryptionType</code></pre>
+                </div>
+                <img src="images/Kerberoast2.png">
+
+                <h4 style="margin: 1.5rem 0 0.75rem; color: var(--text-primary);">KQL: MDI Kerberoasting Query</h4>
+                <div class="code-block-wrapper">
+                  <div class="code-block-header">
+                    <span>KQL</span>
+                    <button class="copy-btn">Copy</button>
+                  </div>
+                  <pre><code class="language-kql">IdentityQueryEvents
+| where ActionType == "LDAP query"
+| where AdditionalFields has "servicePrincipalName"
+    or AdditionalFields has "T1558.003"
+| project Timestamp, DeviceName, AdditionalFields</code></pre>
+                </div>
+                <img src="images/Kerberoast3.png">
+                <h4 style="margin: 1.5rem 0 0.75rem; color: var(--text-primary);">Security Onion: Zeek Kerberos Validation</h4>
+                <div class="code-block-wrapper">
+                  <div class="code-block-header">
+                    <span>Security Onion Query</span>
+                    <button class="copy-btn">Copy</button>
+                  </div>
+                  <pre>source.ip : 192.168.25.130 AND event.dataset : zeek.kerberos AND zeek.kerberos.cipher : "rc4-hmac"</pre>
+                </div>
+                <img src="images/Kerberoast4.png">
+                <div class="insight-box">
+                  <h4>Finding</h4>
+                  <p>SecurityEvent 4769 confirmed the RC4 encryption downgrade. Zeek kerberos.log independently validated the RC4 cipher at the network level.</p>
+                </div>
+
+                <div class="insight-box">
+                  <h4>Analyst Insight</h4>
+                  <p>Kerberoasting from Kali is invisible to Sysmon (no agent). Detection relies on <code>SecurityEvent 4769</code> on DC1 and <code>Zeek kerberos.log</code>.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- =============================== -->
+            <!-- PHASE 5: BLOODHOUND ENUM        -->
+            <!-- =============================== -->
+            <div id="phase-5" class="collapsible">
+              <div class="collapsible-header">
+                <span class="phase-tag">T1087.002 / T1482</span>
+                <h3>Phase 5: BloodHound/SharpHound Enumeration</h3>
+                <span class="collapsible-arrow">&#9654;</span>
+              </div>
+              <div class="collapsible-body">
+                <p>The attacker used Evil-WinRM to connect to Workstation1 as Devin, uploaded SharpHound.exe, and ran it with <code>-c All</code> to enumerate the entire Active Directory environment.</p>
+                <img src="images/BloodhoundEnum1.png">
+                <div class="insight-box">
+                  <h4>Key Insight</h4>
+                  <p>Evil-WinRM uses standard WinRM protocol. The detection signal is not the connection but the <strong>context</strong>: a service account establishing a WinRM session from a non-management IP, followed by offensive tooling execution.</p>
+                </div>
+
+                <!-- TODO: Add Sentinel screenshot -->
+                <img src="images/Bloodhound1.png">
+                <img src="images/Bloodhound2.png">
+
+                <h4 style="margin: 1.5rem 0 0.75rem; color: var(--text-primary);">KQL: MDE WinRM Session Detection</h4>
+                <div class="code-block-wrapper">
+                  <div class="code-block-header">
+                    <span>KQL</span>
+                    <button class="copy-btn">Copy</button>
+                  </div>
+                  <pre><code class="language-kql">DeviceLogonEvents
+| where DeviceName has "Workstation1"
+| where RemoteIP has "192.168.25.130"
+| where AccountName has "Devin"
+| project Timestamp, DeviceName, AccountName, RemoteIP,
+LogonType, Protocol
+| order by Timestamp asc</code></pre>
+                </div>
+                <img src="images/Bloodhound3.png">
+                <h4 style="margin: 1.5rem 0 0.75rem; color: var(--text-primary);">KQL: Sysmon SharpHound File Drop (EID 11)</h4>
+                <div class="code-block-wrapper">
+                  <div class="code-block-header">
+                    <span>KQL</span>
+                    <button class="copy-btn">Copy</button>
+                  </div>
+                  <pre><code class="language-kql">Event
+| where Source == "Microsoft-Windows-Sysmon" and EventID == 11
+| where Computer has "Workstation1"
+| parse EventData with * '&lt;Data Name="TargetFilename"&gt;' TargetFile '&lt;/Data&gt;' *
+| parse EventData with * '&lt;Data Name="Image"&gt;' Image '&lt;/Data&gt;' *
+| parse EventData with * '&lt;Data Name="User"&gt;' User '&lt;/Data&gt;' *
+| where TargetFile has_any ("SharpHound", "sharphound",
+"BloodHound", "bloodhound")
+or TargetFile endswith ".exe" and Image has "wsmprovhost"
+| project User, Image, TargetFile, Computer</code></pre>
+                </div>
+                <img src="images/Bloodhound4.png">
+                <h4 style="margin: 1.5rem 0 0.75rem; color: var(--text-primary);">KQL: MDE SharpHound Execution</h4>
+                <div class="code-block-wrapper">
+                  <div class="code-block-header">
+                    <span>KQL</span>
+                    <button class="copy-btn">Copy</button>
+                  </div>
+                  <pre><code class="language-kql">DeviceProcessEvents
+| where DeviceName has "workstation1"
+| where ProcessCommandLine has_any ("SharpHound", "sharphound",
+"-c All", "CollectionMethod", "--CollectionMethods")
+or FileName has_any ("SharpHound", "sharphound")
+| project Timestamp, DeviceName, AccountName, FileName,
+ProcessCommandLine, InitiatingProcessFileName,
+InitiatingProcessCommandLine
+| order by Timestamp asc</code></pre>
+                </div>
+                <img src="images/Bloodhound5.png">
+                
+                 <h4 style="margin: 1.5rem 0 0.75rem; color: var(--text-primary);">Security Onion: Full Two-Hop Attack View</h4>
+                <div class="code-block-wrapper">
+                  <div class="code-block-header">
+                    <span>Security Onion Query</span>
+                    <button class="copy-btn">Copy</button>
+                  </div>
+                  <pre>(source.ip : 192.168.25.130 AND destination.ip : 192.168.25.141) OR (source.ip : 192.168.25.141 AND destination.ip : 192.168.25.137)</pre>
+                </div>
+                <img src="images/Bloodhound7.png">
+                <div class="insight-box">
+                  <h4>Finding</h4>
+                  <p>This shows both network hops in one view: Kali to Workstation1 (Evil-WinRM) and Workstation1 to DC1 (SharpHound LDAP). First the WinRM session establishes, then the LDAP burst fires.</p>
+                </div>
+
+                <div class="insight-box">
+                  <h4>Analyst Insight</h4>
+                  <p>Running SharpHound from a <strong>managed endpoint</strong> (Workstation1) instead of Kali unlocked MDE detection. If BloodHound-Python ran from Kali, the only detection would have been MDI's LDAP query alert.</p>
+                </div>
+
+                <div class="insight-box warning">
+                  <h4>Finding</h4>
+                  <p>SharpHound revealed <code>svc-test</code> has <strong>GenericWrite</strong> over DC1's computer object, enabling the RBCD attack.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- =============================== -->
+            <!-- PHASE 6: RBCD DOMAIN COMPROMISE -->
+            <!-- =============================== -->
+            <div id="phase-6" class="collapsible">
+              <div class="collapsible-header">
+                <span class="phase-tag">T1134.002 / T1550.003</span>
+                <h3>Phase 6: RBCD Domain Compromise</h3>
+                <span class="collapsible-arrow">&#9654;</span>
+              </div>
+              <div class="collapsible-body">
+                <p>With GenericWrite over DC1's computer object, the attacker executed a Resource-Based Constrained Delegation (RBCD) attack to achieve full domain compromise.</p>
+                <img src="images/BloodhoundEnum2.png">
+                <h4 style="margin: 1.5rem 0 0.75rem; color: var(--text-primary);">Attack Sequence</h4>
+                <ol style="color: var(--text-secondary); margin: 0.5rem 0 1.5rem 1.5rem; line-height: 2;">
+                  <li><code>impacket-addcomputer</code> &mdash; create FAKECOMPUTER$</li>
+                  <li><code>impacket-rbcd</code> &mdash; set RBCD attribute on DC1</li>
+                  <li><code>impacket-getST</code> &mdash; S4U attack to get admin ticket</li>
+                  <li><code>impacket-secretsdump</code> &mdash; dump all hashes</li>
+                </ol>
+
+                <img src="images/RBCD1.png">
+                <img src="images/RBCD2.png">
+                <img src="images/RBCD3.png">
+
+
+                <h4 style="margin: 1.5rem 0 0.75rem; color: var(--text-primary);">KQL: New Machine Account Creation (4741)</h4>
+                <div class="code-block-wrapper">
+                  <div class="code-block-header">
+                    <span>KQL</span>
+                    <button class="copy-btn">Copy</button>
+                  </div>
+                  <pre><code class="language-kql">SecurityEvent
+| where EventID == 4741
+| parse EventData with * '&lt;Data Name="ObjectDN"&gt;' ObjectDN '&lt;/Data&gt;' *
+| parse EventData with * '&lt;Data Name="SubjectUserName"&gt;' SubjectUserName '&lt;/Data&gt;' *
+| parse EventData with * '&lt;Data Name="TargetUserName"&gt;' TargetUserName '&lt;/Data&gt;' *
+| project TimeGenerated, CreatedBy = SubjectUserName, NewComputer = TargetUserName</code></pre>
+                </div>
+                <img src="images/RBCD4.png">
+                <h4 style="margin: 1.5rem 0 0.75rem; color: var(--text-primary);">KQL: RBCD Attribute Modification (Critical &mdash; 5136)</h4>
+                <div class="code-block-wrapper">
+                  <div class="code-block-header">
+                    <span>KQL</span>
+                    <button class="copy-btn">Copy</button>
+                  </div>
+                  <pre><code class="language-kql">SecurityEvent
+| where EventID == 5136
+| parse EventData with * '&lt;Data Name="AttributeLDAPDisplayName"&gt;' AttributeLDAPDisplayName '&lt;/Data&gt;' *
+| parse EventData with * '&lt;Data Name="AttributeValue"&gt;' AttributeValue '&lt;/Data&gt;' *
+| parse EventData with * '&lt;Data Name="ObjectDN"&gt;' ObjectDN '&lt;/Data&gt;' *
+| parse EventData with * '&lt;Data Name="OperationType"&gt;' OperationType '&lt;/Data&gt;' *
+| where AttributeLDAPDisplayName == "msDS-AllowedToActOnBehalfOfOtherIdentity"
+| project TimeGenerated, SubjectUserName, ObjectDN,
+    AttributeLDAPDisplayName, AttributeValue, OperationType, Computer
+| order by TimeGenerated asc</code></pre>
+                </div>
+                <img src="images/RBCD6.png">
+                <h4 style="margin: 1.5rem 0 0.75rem; color: var(--text-primary);">KQL: MDE Multi-Protocol Network Footprint</h4>
+                <div class="code-block-wrapper">
+                  <div class="code-block-header">
+                    <span>KQL</span>
+                    <button class="copy-btn">Copy</button>
+                  </div>
+                  <pre><code class="language-kql">DeviceNetworkEvents
+| where DeviceName has "DC1"
+| where RemoteIP has "192.168.25.130"
+| where LocalPort in (88, 135, 389, 445, 636)
+| summarize ConnectionCount = count(), Ports = make_set(LocalPort)
+    by RemoteIP, DeviceName
+| where array_length(Ports) >= 3</code></pre>
+                </div>
+                <img src="images/RBCD7.png">
+
+                 <h4 style="margin: 1.5rem 0 0.75rem; color: var(--text-primary);">Security Onion: Multi-Protocol RBCD Network Footprint</h4>
+                <div class="code-block-wrapper">
+                  <div class="code-block-header">
+                    <span>Security Onion Query</span>
+                    <button class="copy-btn">Copy</button>
+                  </div>
+                  <pre>source.ip : 192.168.25.130 AND destination.ip : 192.168.25.137 AND destination.port : (88 OR 389 OR 445)</pre>
+                </div>
+                <img src="images/RBCD8.png">
+                <div class="insight-box">
+                  <h4>Finding</h4>
+                  <p>LDAP, Kerberos, and SMB connections in rapid succession from Kali to DC1. This is the network-level evidence of the RBCD chain.</p>
+                </div>
+                <div class="insight-box warning">
+                  <h4>Finding &mdash; Complete Domain Compromise</h4>
+                  <p><code>svc-test</code>'s GenericWrite ACL on DC1's computer object was exploited. FAKECOMPUTER$ was created, DC1's <code>msDS-AllowedToActOnBehalfOfOtherIdentity</code> was modified, S4U2Proxy forged a Domain Admin ticket. <strong>Complete domain compromise.</strong></p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- === REMEDIATION RECOMMENDATIONS === -->
+          <section id="remediation" style="margin-top: 3rem;">
+            <div class="section-header">
+              <h2>Remediation Recommendations</h2>
+              <p>Prioritized hardening actions mapped to each attack phase</p>
+            </div>
+
+            <div class="card">
+              <ul class="remediation-list">
+                <li><strong>Phase 1 &mdash; Brute Force:</strong> Disable the Guest account, enforce account lockout (5 attempts, 15-minute lockout).</li>
+                <li><strong>Phase 2 &mdash; SMB Share Exposure:</strong> Remove plaintext credentials from shares, implement a password vault, audit share permissions.</li>
+                <li><strong>Phase 3 &mdash; Lateral Movement:</strong> Implement conditional access policies, restrict sensitive accounts to known management IPs.</li>
+                <li><strong>Phase 4 &mdash; Kerberoasting:</strong> Enforce AES-only Kerberos, use Group Managed Service Accounts (gMSAs), 25+ character service account passwords.</li>
+                <li><strong>Phase 5 &mdash; BloodHound Enumeration:</strong> Restrict WinRM to management IPs, enable PowerShell Constrained Language Mode, audit ACLs on computer objects.</li>
+                <li><strong>Phase 6 &mdash; RBCD Domain Compromise:</strong> Set <code>ms-DS-MachineAccountQuota</code> to 0, remove unnecessary write permissions, monitor <code>msDS-AllowedToActOnBehalfOfOtherIdentity</code>, implement tiered administration, reset KRBTGT password twice.</li>
+              </ul>
+            </div>
+          </section>
+          <img src="images/Remediation.png">
+
+          <!-- === LESSONS LEARNED === -->
+          <section id="lessons-learned" style="margin-top: 3rem;">
+            <div class="section-header">
+              <h2>Lessons Learned</h2>
+              <p>Key takeaways from the investigation</p>
+            </div>
+
+            <div class="card" style="margin-bottom: 1rem;">
+              <h3>1. XDR Unified Correlation</h3>
+              <p style="color: var(--text-secondary);">XDR unified correlation transformed the investigation &mdash; 29 alerts collapsed into 1 incident, providing immediate kill-chain visibility across all 7 ATT&CK tactics.</p>
+            </div>
+
+            <div class="card" style="margin-bottom: 1rem;">
+              <h3>2. Custom + Vendor Detection Synergy</h3>
+              <p style="color: var(--text-secondary);">Custom detection rules (Guest SMB share access) integrated with vendor alerts (MDI brute force, MDE hands-on-keyboard) to provide layered coverage.</p>
+            </div>
+
+            <div class="card" style="margin-bottom: 1rem;">
+              <h3>3. Sysmon Blind Spots</h3>
+              <p style="color: var(--text-secondary);">Sysmon has inherent blind spots for unmanaged hosts. Kerberoasting, SMB enumeration, and Impacket tools executed from Kali left no Sysmon traces &mdash; only Windows Security Events and network telemetry provided coverage.</p>
+            </div>
+
+            <div class="card" style="margin-bottom: 1rem;">
+              <h3>4. Managed Endpoint Advantage</h3>
+              <p style="color: var(--text-secondary);">Running SharpHound from a managed endpoint (Workstation1) improved detection significantly. MDE captured process execution, file creation, and command-line arguments that would have been invisible from Kali.</p>
+            </div>
+
+            <div class="card" style="margin-bottom: 1rem;">
+              <h3>5. Multi-Source Correlation</h3>
+              <p style="color: var(--text-secondary);">Multi-source correlation is the strongest evidence pattern. Combining SecurityEvent logs, Sysmon, MDE, MDI, and Zeek provided overlapping detection that no single source could achieve alone.</p>
+            </div>
+
+            <div class="card" style="margin-bottom: 1rem;">
+              <h3>6. Attack Disruption Speed</h3>
+              <p style="color: var(--text-secondary);">Attack Disruption reduced time-to-contain to seconds. XDR's automatic containment of compromised accounts limited the blast radius before analyst intervention.</p>
+            </div>
+
+            <div class="card" style="margin-bottom: 1rem;">
+              <h3>7. Detection Gap Awareness</h3>
+              <p style="color: var(--text-secondary);">Detection gap awareness is more valuable than detection perfection. Knowing where your blind spots are (unmanaged hosts, LDAP-only queries) allows you to build compensating controls.</p>
+            </div>
+
+            <div class="card" style="margin-bottom: 1rem;">
+              <h3>8. RBCD as a Modern Threat</h3>
+              <p style="color: var(--text-secondary);">RBCD is a realistic modern threat most environments are not prepared to detect. Monitoring <code>msDS-AllowedToActOnBehalfOfOtherIdentity</code> modifications and machine account creation are critical detection controls that few organizations have in place.</p>
+            </div>
+          </section>
+
+        </div><!-- /.main-content -->
+      </div><!-- /.layout-with-toc -->
+    </div><!-- /.container -->
+  </div><!-- /.page-content -->
+
+  <!-- === LIGHTBOX === -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close">&times;</button>
+    <img id="lightbox-img" src="" alt="Enlarged screenshot">
+  </div>
+
+  <!-- === FOOTER === -->
+  <footer class="footer">
+    <p>SOC Analyst Portfolio &mdash; Active Directory Attack Chain Case Study</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

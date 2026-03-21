@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab Environment | SOC Analyst Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- === NAVIGATION === -->
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">Devin's Homelab</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="lab-environment.html" class="active">Lab Environment</a></li>
+            <li><a href="ad-attack-chain.html">AD Attack Chain</a></li>
+            <li><a href="web-attack-chain.html">Web Attack Chain</a></li>
+            <li><a href="detection-rules.html">Custom Detections</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+        <button class="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
+    </nav>
+
+  <!-- === PAGE CONTENT === -->
+  <div class="page-content">
+    <div class="container">
+
+      <!-- === NETWORK TOPOLOGY === -->
+      <section id="topology">
+        <div class="section-header">
+          <h2>Network Topology</h2>
+          <p>Visual overview of the lab network, assets, and traffic flow</p>
+        </div>
+        <div class="screenshot" style="max-width: 950px; margin: 0 auto 2rem;">
+          <img src="images/topology.png" alt="Lab network topology diagram showing all assets, subnets, and traffic flow">
+          <div class="screenshot-caption">Lab network topology &mdash; click to enlarge</div>
+        </div>
+      </section>
+
+      <!-- === ASSET TABLE === -->
+      <section id="assets" style="margin-top: 3rem;">
+        <div class="section-header">
+          <h2>Asset Inventory</h2>
+          <p>All hosts deployed in the lab environment</p>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Asset</th>
+                <th>Hostname / IP</th>
+                <th>OS</th>
+                <th>Role</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Domain Controller</td>
+                <td><code>DC1.lab.local</code> / <code>192.168.25.137</code></td>
+                <td>Windows Server 2022</td>
+                <td><span class="role-badge">AD DS</span> <span class="role-badge">DNS</span> <span class="role-badge">MDI Sensor</span></td>
+              </tr>
+              <tr>
+                <td>Workstation</td>
+                <td><code>Workstation1.lab.local</code> / <code>192.168.25.141</code></td>
+                <td>Windows 11</td>
+                <td><span class="role-badge">Domain-joined endpoint</span></td>
+              </tr>
+              <tr>
+                <td>Web Server</td>
+                <td><code>web01</code> / <code>192.168.25.142</code></td>
+                <td>Ubuntu 24</td>
+                <td><span class="role-badge">DVWA (Damn Vulnerable Web App)</span></td>
+              </tr>
+              <tr>
+                <td>Security Onion</td>
+                <td><code>192.168.25.10</code></td>
+                <td>Security Onion</td>
+                <td><span class="role-badge">Suricata IDS</span> <span class="role-badge">Zeek</span></td>
+              </tr>
+              <tr>
+                <td>Attacker</td>
+                <td><code>Kali</code> / <code>192.168.25.130</code></td>
+                <td>Kali Linux</td>
+                <td><span class="role-badge">Red team / attack simulation</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- === TELEMETRY & TOOLING === -->
+      <section id="telemetry" style="margin-top: 3rem;">
+        <div class="section-header">
+          <h2>Telemetry &amp; Tooling</h2>
+          <p>Detection layers deployed across the lab to capture endpoint, identity, and network telemetry</p>
+        </div>
+        <div class="telemetry-grid">
+
+          <!-- Microsoft Sentinel -->
+          <div class="card">
+            <h3>Microsoft Sentinel</h3>
+            <p>Cloud SIEM ingesting all log sources. Acts as the single pane of glass for detection, investigation, and hunting across every telemetry layer in the lab.</p>
+          </div>
+
+          <!-- MDE -->
+          <div class="card">
+            <h3>Microsoft Defender for Endpoint (MDE)</h3>
+            <p>EDR deployed on all Windows and Linux endpoints. Provides deep visibility into process, network, file, and logon activity.</p>
+            <div style="margin-top: 0.75rem;">
+              <span class="role-badge">DeviceProcessEvents</span>
+              <span class="role-badge">DeviceNetworkEvents</span>
+              <span class="role-badge">DeviceFileEvents</span>
+              <span class="role-badge">DeviceLogonEvents</span>
+            </div>
+          </div>
+
+          <!-- MDI -->
+          <div class="card">
+            <h3>Microsoft Defender for Identity (MDI)</h3>
+            <p>Monitors Active Directory authentication traffic on DC1. Detects lateral movement, credential theft, and reconnaissance against the domain.</p>
+            <div style="margin-top: 0.75rem;">
+              <span class="role-badge">IdentityLogonEvents</span>
+              <span class="role-badge">IdentityQueryEvents</span>
+            </div>
+          </div>
+
+          <!-- Sysmon -->
+          <div class="card">
+            <h3>Sysmon</h3>
+            <p>Deployed on Windows (DC1, Workstation1) and Linux (web01) using <strong>Olaf Hartong's sysmon-modular</strong> config for high-fidelity process and network telemetry.</p>
+            <div style="margin-top: 0.75rem;">
+              <span class="role-badge">1 &mdash; Process Create</span>
+              <span class="role-badge">3 &mdash; Network Conn</span>
+              <span class="role-badge">7 &mdash; Image Load</span>
+              <span class="role-badge">10 &mdash; Process Access / LSASS</span>
+              <span class="role-badge">11 &mdash; File Create</span>
+              <span class="role-badge">13 &mdash; Registry</span>
+              <span class="role-badge">22 &mdash; DNS Query</span>
+              <span class="role-badge">25 &mdash; Process Tampering</span>
+            </div>
+          </div>
+
+          <!-- Security Onion -->
+          <div class="card">
+            <h3>Security Onion</h3>
+            <p>Network monitoring via a dedicated sensor NIC on a network tap. Passively captures and analyses all mirrored traffic from the lab network.</p>
+            <div style="margin-top: 0.75rem;">
+              <strong style="color: var(--text-secondary); font-size: 0.85rem;">Zeek logs:</strong>
+              <span class="role-badge">conn.log</span>
+              <span class="role-badge">http.log</span>
+              <span class="role-badge">dns.log</span>
+              <span class="role-badge">files.log</span>
+              <span class="role-badge">kerberos.log</span>
+            </div>
+            <div style="margin-top: 0.5rem;">
+              <strong style="color: var(--text-secondary); font-size: 0.85rem;">Suricata IDS:</strong>
+              <span class="role-badge">ET Open rules</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+      <img src="images/DeviceInventory.png" alt="Sentinel Data Connectors overview">
+      <img src="images/IdentityInventory.png" alt="Sentinel Data Connectors overview">
+      <img src="images/DataConnectors.png" alt="Sentinel Data Connectors overview">
+      <!-- === LOG FLOW === -->
+      <section id="log-flow" style="margin-top: 3rem;">
+        <div class="section-header">
+          <h2>Log Flow</h2>
+          <p>How telemetry travels from source to SIEM</p>
+        </div>
+
+        <div class="card">
+          <h3>Endpoint &rarr; Sentinel (Azure Monitor Agent)</h3>
+          <p>Workstation1, DC1, and web01 ship logs to <strong>Microsoft Sentinel</strong> via <strong>Azure Monitor Agents (AMA)</strong>. The agents collect Sysmon events, Windows Security logs, and Linux syslog, forwarding them into the Log Analytics workspace where Sentinel analytics rules evaluate every ingested record.</p>
+        </div>
+
+        <div class="card">
+          <h3>Network Tap &rarr; Security Onion (Passive Capture)</h3>
+          <p>Security Onion's <strong>sensor NIC</strong> passively captures all mirrored traffic from the <strong>network tap</strong>. Because the sensor interface operates in promiscuous mode with no IP address, it is invisible to attackers on the wire. Zeek and Suricata process every packet to produce connection, protocol, and alert logs.</p>
+        </div>
+      </section>
+
+      <!-- === NETWORK TELEMETRY VISUALIZATIONS === -->
+      <section id="network-telemetry" style="margin-top: 3rem;">
+        <div class="section-header">
+          <h2>Network Telemetry Visualizations</h2>
+          <p>Security Onion dashboards and visualizations showing network-level detection coverage across the lab</p>
+        </div>
+        <img src="images/KerberosDashboard.png" alt="Kerberos Dashboard">
+        <img src="images/DNSDashboard.png" alt="DNS Dashboard">
+        <img src="images/NTLMDashboard.png" alt="NTLM Dashboard">
+        <img src="images/KibanaNetworkDashboard.png" alt="Kibana Dashboard">
+      </section>
+
+      <!-- === BASELINE KQL QUERIES === -->
+      <section id="baseline-queries" style="margin-top: 3rem;">
+        <div class="section-header">
+          <h2>Baseline KQL Queries</h2>
+          <p>Queries used to establish normal activity baselines before running attack simulations</p>
+        </div>
+
+        <!-- Sysmon Process Baseline -->
+        <div class="card">
+          <h3>Sysmon Process Baseline</h3>
+          <p>Establishes which processes, parent-child relationships, and users are normal across the environment. Run this <em>before</em> any attack chain to identify what stands out later.</p>
+
+          <div class="code-block-wrapper">
+            <div class="code-block-header">
+              <span>KQL &mdash; Sysmon Event ID 1</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code class="language-kql">Event
+| where Source == "Microsoft-Windows-Sysmon" and EventID == 1
+| parse EventData with * '&lt;Data Name="Image"&gt;' Image '&lt;/Data&gt;' *
+| parse EventData with * '&lt;Data Name="ParentImage"&gt;' ParentImage '&lt;/Data&gt;' *
+| parse EventData with * '&lt;Data Name="User"&gt;' User '&lt;/Data&gt;' *
+| summarize Count = count() by Image, ParentImage, User, Computer
+| order by Count desc
+| take 50</code></pre>
+          </div>
+
+          <div class="insight-box">
+            <h4>Analyst Note</h4>
+            <p>After running this baseline, any new process or unusual parent-child relationship introduced during an attack simulation will immediately stand out in your hunt results.</p>
+          </div>
+        </div>
+        <img src="images/SysmonBaseline.png">
+      </section>
+
+            <!-- === AUDIT POLICIES === -->
+      <section id="audit-policies" style="margin-top: 3rem;">
+        <div class="section-header">
+          <h2>Audit Policies</h2>
+          <p>Windows advanced audit policies configured via GPO to ensure full coverage</p>
+        </div>
+        <img src="images/Audit1.png">
+        <img src="images/Audit2.png">
+        <img src="images/Audit3.png">
+        <img src="images/Audit4.png">
+        <img src="images/Audit5.png">
+        <img src="images/Audit6.png">
+      </section>
+
+    </div><!-- /.container -->
+  </div><!-- /.page-content -->
+
+  <!-- === LIGHTBOX === -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" aria-label="Close lightbox">&times;</button>
+    <img id="lightbox-img" src="" alt="Enlarged screenshot">
+  </div>
+
+  <!-- === FOOTER === -->
+  <footer class="footer">
+    <div class="container">
+      <p>SOC Analyst Portfolio &mdash; Detection Lab &amp; Threat Hunting</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

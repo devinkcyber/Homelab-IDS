@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Devin King | SOC Analyst Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">Devin's Homelab</a>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="lab-environment.html">Lab Environment</a></li>
+            <li><a href="ad-attack-chain.html">AD Attack Chain</a></li>
+            <li><a href="web-attack-chain.html">Web Attack Chain</a></li>
+            <li><a href="detection-rules.html">Custom Detections</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+        <button class="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <p style="color: var(--text-secondary);">Hi, I'm</p>
+            <h1>Devin King</h1>
+            <p class="tagline">SOC Analyst | Threat Hunter</p>
+            <p class="summary">
+                A fully instrumented 5-VM homelab running Microsoft Sentinel, Defender for Endpoint,
+                Defender for Identity, Sysmon, and Security Onion &mdash; built to detect, investigate,
+                and respond to real attack chains using custom KQL analytics rules, MITRE ATT&CK mapping,
+                and multi-source alert correlation in Microsoft Sentinel and Defender XDR.
+            </p>
+        </div>
+        <div class="hero-diagram">
+            <img src="images/topology.png" alt="Network Topology Diagram — 5-VM Homelab Environment">
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="stats-bar">
+        <div class="stat-item">
+            <span class="stat-number">5</span>
+            <span class="stat-label">VMs</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">12+</span>
+            <span class="stat-label">MITRE ATT&CK Techniques</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">2</span>
+            <span class="stat-label">Full Attack Chains</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">20+</span>
+            <span class="stat-label">KQL Detection Rules</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">6</span>
+            <span class="stat-label">Data Sources</span>
+        </div>
+    </section>
+
+    <!-- Navigation Cards -->
+    <section class="container">
+        <div class="nav-grid">
+            <a href="lab-environment.html" class="nav-card">
+                <h3>Lab Environment</h3>
+                <p>Full architecture breakdown of the 5-VM homelab, including network topology, telemetry layers, and data flow from endpoints into Microsoft Sentinel.</p>
+            </a>
+            <a href="ad-attack-chain.html" class="nav-card">
+                <h3>AD Attack Chain</h3>
+                <p>Simulated AD attack chain used to build and validate detection coverage in Microsoft Sentinel &mdash; from brute force through RBCD, with KQL queries and XDR incident correlation at every phase.</p>
+            </a>
+            <a href="web-attack-chain.html" class="nav-card">
+                <h3>Web Attack Chain</h3>
+                <p>Web server attack simulation used to build detections across both endpoint (Sysmon) and network (Security Onion) telemetry layers, highlighting gaps only network monitoring can fill.</p>
+            </a>
+            <a href="detection-rules.html" class="nav-card">
+                <h3>Custom Detections</h3>
+                <p>Custom KQL analytics rules built in Microsoft Sentinel, mapped to MITRE ATT&CK, with detection logic, tuning notes, and validated against real attack simulations.</p>
+            </a>
+            <a href="about.html" class="nav-card">
+                <h3>About</h3>
+                <p>Background, methodology, and the thinking behind building a detection-focused homelab from the ground up.</p>
+            </a>
+        </div>
+    </section>
+
+    <br>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2026 Devin King.</p>
+        </div>
+    </footer>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" aria-label="Close lightbox">&times;</button>
+        <img id="lightbox-img" src="" alt="Enlarged view">
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

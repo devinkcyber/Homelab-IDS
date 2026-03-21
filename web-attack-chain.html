@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Attack Chain | SOC Analyst Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- === NAVIGATION === -->
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">Devin's Homelab</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="lab-environment.html">Lab Environment</a></li>
+            <li><a href="ad-attack-chain.html">AD Attack Chain</a></li>
+            <li><a href="web-attack-chain.html" class="active">Web Attack Chain</a></li>
+            <li><a href="detection-rules.html">Custom Detections</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+        <button class="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
+    </nav>
+
+  <!-- === PAGE CONTENT === -->
+  <div class="page-content">
+    <div class="container">
+      <div class="layout-with-toc">
+
+        <!-- === TOC SIDEBAR === -->
+        <aside class="toc-sidebar">
+          <h4>On This Page</h4>
+          <ul>
+            <li><a href="#executive-summary">Executive Summary</a></li>
+          </ul>
+        </aside>
+
+        <!-- === MAIN CONTENT === -->
+        <div class="main-content">
+
+          <!-- HERO / TITLE -->
+          <div class="section-header" id="executive-summary">
+            <h2>Web Server Attack Chain Case Study</h2>
+            <p>Directory Busting &rarr; SQL Injection &rarr; Command Injection &rarr; Reverse Shell &rarr; Linpeas Download &rarr; Linpeas Execution &rarr; Privilege Escalation via Cron Job Abuse</p>
+          </div>
+
+          <!-- STATS BAR -->
+          <div class="stats-bar">
+            <div class="stat-item">
+              <div class="stat-number">7</div>
+              <div class="stat-label">Attack Phases</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">7</div>
+              <div class="stat-label">MITRE Techniques</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">2</div>
+              <div class="stat-label">Telemetry Layers</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">Root</div>
+              <div class="stat-label">Final Access</div>
+            </div>
+          </div>
+
+          <!-- EXECUTIVE SUMMARY -->
+          <div class="card">
+            <h3>Executive Summary</h3>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8;">
+              A multi-phase web server attack chain targeting an Ubuntu 24 server running DVWA (Damn Vulnerable Web Application). The attacker progressed from initial reconnaissance through privilege escalation to root, demonstrating detection across both network (Security Onion/Zeek/Suricata) and endpoint (Sysmon for Linux, MDE) telemetry layers. This chain emphasizes the critical network vs endpoint detection gap &mdash; SQL injection is only visible at the network layer.
+            </p>
+          </div>
+
+          <div class="insight-box warning">
+            <h4>Key Insight: Network vs Endpoint Detection Gap</h4>
+            <p>SQL injection payloads exist only in HTTP request parameters. Endpoint tools like Sysmon never see them. Without network telemetry (Zeek http.log, Suricata), this entire phase of the attack is invisible.</p>
+          </div>
+
+          <div class="card" style="margin-top: 2rem; text-align: center; padding: 3rem;">
+            <p style="color: var(--text-secondary); font-size: 1.1rem;">This case study is a work in progress.</p>
+          </div>
+
+        </div><!-- /.main-content -->
+      </div><!-- /.layout-with-toc -->
+    </div><!-- /.container -->
+  </div><!-- /.page-content -->
+
+  <!-- === LIGHTBOX === -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close">&times;</button>
+    <img id="lightbox-img" src="" alt="Enlarged screenshot">
+  </div>
+
+  <!-- === FOOTER === -->
+  <footer class="footer">
+    <p>SOC Analyst Portfolio &mdash; Detection Engineering &amp; Threat Hunting</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
