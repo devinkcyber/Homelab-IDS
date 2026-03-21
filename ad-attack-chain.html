@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=5">
 </head>
 <body>
 
@@ -87,7 +87,6 @@
           </section>
           <img src="images/Unified.png">
           <img src="images/Summary.png">
-          <img src="images/Workbook.png" alt="Microsoft Sentinel Workbook - AD Attack Chain Overview.">
 
           <!-- === MITRE ATT&CK MAPPING === -->
           <section id="mitre-mapping" style="margin-top: 3rem;">
@@ -154,6 +153,7 @@
               </table>
             </div>
           </section>
+          <img src="images/Workbook.png">
 
           <!-- === DETECTION WALKTHROUGH === -->
           <section id="detection-walkthrough" style="margin-top: 3rem;">
@@ -174,7 +174,7 @@
               <div class="collapsible-body">
                 <p>XDR correlated brute force alerts. A custom <strong>"Guest Account Accessed SMB Share"</strong> analytics rule fired at 5:23 PM. The Guest account was brute forced from <code>192.168.25.130</code> with <strong>13 failed attempts over 1 minute</strong> before a successful logon.</p>
                 <img src="images/Custom1.png">
-                <div class="code-block-wrapper">
+                <div class="code-block-wrapper attack-cmd">
                   <div class="code-block-header">
                     <span>Attack Command</span>
                   </div>
@@ -238,7 +238,7 @@
               <div class="collapsible-body">
                 <p>The compromised Guest account accessed SMB shares on DC1 and read a file containing <strong>Devin's plaintext password</strong>.</p>
                 <img src="images/Custom1.png">
-                <div class="code-block-wrapper">
+                <div class="code-block-wrapper attack-cmd">
                   <div class="code-block-header">
                     <span>Attack Commands</span>
                   </div>
@@ -311,7 +311,7 @@ LogonType, Computer
               <div class="collapsible-body">
                 <p>The attacker used NetExec to request Kerberos service tickets with RC4 encryption, then cracked them offline with John the Ripper.</p>
 
-                <div class="code-block-wrapper">
+                <div class="code-block-wrapper attack-cmd">
                   <div class="code-block-header">
                     <span>Attack Commands</span>
                   </div>
@@ -570,7 +570,19 @@ InitiatingProcessCommandLine
               <p>Prioritized hardening actions mapped to each attack phase</p>
             </div>
 
-            <div class="card">
+            <div class="card" style="margin-bottom: 1.5rem;">
+              <h3 style="margin-bottom: 0.75rem;">Automatic Remediation &mdash; XDR Attack Disruption</h3>
+              <p style="color: var(--text-secondary); margin-bottom: 1rem;">Before any manual intervention, Microsoft Defender XDR automatically triggered <strong>Attack Disruption</strong> in response to the unified incident. MDE and MDI took immediate containment actions &mdash; disabling the compromised accounts, suspending the user in Azure AD, and blocking lateral movement paths &mdash; effectively halting the kill chain while the investigation was still underway. The screenshot below shows every automated action taken by the platform.</p>
+              <div class="insight-box">
+                <h4>Why This Matters</h4>
+                <p>Automated remediation is a force multiplier for SOC teams. In a production environment, these actions would have contained the threat within minutes of initial detection &mdash; before an analyst even opened the incident. Understanding what the platform does automatically helps analysts focus their investigation on what the automation <em>didn't</em> catch.</p>
+              </div>
+            </div>
+            <img src="images/Remediation.png">
+
+            <div class="card" style="margin-top: 1.5rem;">
+              <h3 style="margin-bottom: 0.75rem;">Manual Remediation Recommendations</h3>
+              <p style="color: var(--text-secondary); margin-bottom: 1rem;">Beyond the automated response, the following hardening actions are recommended to prevent recurrence, mapped to each attack phase:</p>
               <ul class="remediation-list">
                 <li><strong>Phase 1 &mdash; Brute Force:</strong> Disable the Guest account, enforce account lockout (5 attempts, 15-minute lockout).</li>
                 <li><strong>Phase 2 &mdash; SMB Share Exposure:</strong> Remove plaintext credentials from shares, implement a password vault, audit share permissions.</li>
@@ -581,7 +593,6 @@ InitiatingProcessCommandLine
               </ul>
             </div>
           </section>
-          <img src="images/Remediation.png">
 
           <!-- === LESSONS LEARNED === -->
           <section id="lessons-learned" style="margin-top: 3rem;">
@@ -647,6 +658,6 @@ InitiatingProcessCommandLine
     <p>SOC Analyst Portfolio &mdash; Active Directory Attack Chain Case Study</p>
   </footer>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.js?v=2"></script>
 </body>
 </html>

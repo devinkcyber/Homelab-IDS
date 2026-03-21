@@ -32,26 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* === Lightbox === */
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = document.getElementById('lightbox-img');
-
-  document.querySelectorAll('.screenshot img, .hero-diagram img').forEach(img => {
-    img.addEventListener('click', () => {
-      if (lightbox && lightboxImg) {
-        lightboxImg.src = img.src;
-        lightbox.classList.add('active');
-      }
-    });
-  });
-
-  if (lightbox) {
-    lightbox.addEventListener('click', e => {
-      if (e.target !== lightboxImg) lightbox.classList.remove('active');
-    });
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') lightbox.classList.remove('active');
-    });
-  }
+  setupLightbox();
 
   /* === KQL Syntax Highlighting === */
   document.querySelectorAll('pre code.language-kql').forEach(block => {
@@ -154,3 +135,31 @@ function escapeHtml(text) {
   div.appendChild(document.createTextNode(text));
   return div.innerHTML;
 }
+
+/* === Lightbox Setup — attaches click-to-zoom to every image === */
+function setupLightbox() {
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  if (!lightbox || !lightboxImg) return;
+
+  // Attach click handler to every image on the page
+  document.querySelectorAll('img').forEach(img => {
+    if (img.id === 'lightbox-img') return;
+    img.style.cursor = 'pointer';
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src;
+      lightbox.classList.add('active');
+    });
+  });
+
+  // Close lightbox on click outside image or Escape key
+  lightbox.addEventListener('click', e => {
+    if (e.target !== lightboxImg) lightbox.classList.remove('active');
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') lightbox.classList.remove('active');
+  });
+}
+
+// Also run on window load as a fallback in case DOMContentLoaded misses late images
+window.addEventListener('load', setupLightbox);
