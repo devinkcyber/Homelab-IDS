@@ -20,7 +20,7 @@
   --code-bg: #0d1117;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
-  --max-width: 1200px;
+  --max-width: 1400px;
   --nav-height: 60px;
 }
 
@@ -448,11 +448,12 @@ section img,
 }
 
 /* === SIDEBAR TOC === */
-.layout-with-toc { display: flex; gap: 2rem; }
+.layout-with-toc { display: flex; gap: 1.5rem; }
 .toc-sidebar {
   position: sticky;
   top: calc(var(--nav-height) + 1rem);
-  width: 220px;
+  width: 230px;
+  min-width: 230px;
   flex-shrink: 0;
   height: fit-content;
   max-height: calc(100vh - var(--nav-height) - 2rem);

@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=5">
+  <link rel="stylesheet" href="css/style.css?v=9">
 </head>
 <body>
 
@@ -38,16 +38,20 @@
       <!-- Stats Bar -->
       <div class="stats-bar">
         <div class="stat-item">
-          <div class="stat-number">2</div>
+          <div class="stat-number">10</div>
           <div class="stat-label">AD Chain Rules</div>
         </div>
         <div class="stat-item">
-          <div class="stat-number">1</div>
+          <div class="stat-number">4</div>
+          <div class="stat-label">Critical</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">5</div>
           <div class="stat-label">High</div>
         </div>
         <div class="stat-item">
           <div class="stat-number">1</div>
-          <div class="stat-label">Critical</div>
+          <div class="stat-label">Medium</div>
         </div>
       </div>
 
@@ -57,7 +61,7 @@
       <section id="ad-rules" style="margin-top: 3rem;">
         <div class="section-header">
           <h2>Active Directory Attack Chain Rules</h2>
-          <p>Custom detection rules covering discovery and privilege escalation in the AD environment.</p>
+          <p>10 custom detection rules covering credential access, discovery, lateral movement, and privilege escalation across the AD attack chain.</p>
         </div>
 
         <!-- Rule 1 -->
@@ -91,11 +95,209 @@ RelativeTargetName, AccessMask, IpAddress
           </p>
         </div>
 
-        <!-- Rule 2 -->
+        <!-- Rule 2: Brute Force Detection -->
         <div class="rule-card">
           <div class="rule-card-header">
-            <h3>Rule 2: New Machine Account Created</h3>
+            <h3>Rule 2: Brute Force Detection</h3>
+            <span class="severity severity-high">High</span>
+          </div>
+          <div class="rule-meta">
+            <div class="rule-meta-item">MITRE: <span>T1110.001 - Credential Access</span></div>
+            <div class="rule-meta-item">Source: <span>SecurityEvent</span></div>
+            <div class="rule-meta-item">Frequency: <span>5 min</span></div>
+            <div class="rule-meta-item">Lookback: <span>1 hour</span></div>
+            <div class="rule-meta-item">Entities: <span>Account, IP</span></div>
+          </div>
+          <div class="code-block-wrapper">
+            <div class="code-block-header">
+              <span>KQL</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code class="language-kql">SecurityEvent
+| where EventID == 4625
+| summarize FailedAttempts = count(),
+        StartTime = min(TimeGenerated),
+        EndTime = max(TimeGenerated)
+    by TargetAccount, IpAddress, Computer
+| where FailedAttempts >= 5</code></pre>
+          </div>
+          <p style="margin-top: 0.75rem; color: var(--text-muted); font-size: 0.85rem;">
+            <strong>False Positives:</strong> Users mistyping passwords, service accounts with expired credentials
+          </p>
+        </div>
+
+        <!-- Rule 3: Brute Force Followed by Successful Logon -->
+        <div class="rule-card">
+          <div class="rule-card-header">
+            <h3>Rule 3: Brute Force Followed by Successful Logon</h3>
             <span class="severity severity-critical">Critical</span>
+          </div>
+          <div class="rule-meta">
+            <div class="rule-meta-item">MITRE: <span>T1110.001 - Credential Access</span></div>
+            <div class="rule-meta-item">Source: <span>IdentityLogonEvents (MDI)</span></div>
+            <div class="rule-meta-item">Frequency: <span>5 min</span></div>
+            <div class="rule-meta-item">Lookback: <span>24 hours</span></div>
+            <div class="rule-meta-item">Entities: <span>Account, IP</span></div>
+          </div>
+          <div class="code-block-wrapper">
+            <div class="code-block-header">
+              <span>KQL</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code class="language-kql">IdentityLogonEvents
+| where ActionType == "LogonFailed"
+| where AccountName has "Guest"
+| extend FailCount = AdditionalFields.Count
+| where FailCount >= 5
+| join kind=inner (
+    IdentityLogonEvents
+    | where ActionType == "LogonSuccess"
+    | where AccountName has "Guest"
+    | project AccountName, IPAddress, SuccessTime = Timestamp
+) on AccountName, IPAddress
+| where SuccessTime > Timestamp
+| project AccountName, FailCount, Timestamp, SuccessTime</code></pre>
+          </div>
+          <p style="margin-top: 0.75rem; color: var(--text-muted); font-size: 0.85rem;">
+            <strong>False Positives:</strong> Rare &mdash; failed then success within window is high signal
+          </p>
+        </div>
+
+        <!-- Rule 4: Lateral Movement from Untrusted IP -->
+        <div class="rule-card">
+          <div class="rule-card-header">
+            <h3>Rule 4: Lateral Movement from Untrusted IP</h3>
+            <span class="severity severity-high">High</span>
+          </div>
+          <div class="rule-meta">
+            <div class="rule-meta-item">MITRE: <span>T1078.002 - Lateral Movement</span></div>
+            <div class="rule-meta-item">Source: <span>SecurityEvent</span></div>
+            <div class="rule-meta-item">Frequency: <span>5 min</span></div>
+            <div class="rule-meta-item">Lookback: <span>1 hour</span></div>
+            <div class="rule-meta-item">Entities: <span>Account, IP, Host</span></div>
+          </div>
+          <div class="code-block-wrapper">
+            <div class="code-block-header">
+              <span>KQL</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code class="language-kql">SecurityEvent
+| where EventID == 4624
+| where LogonType in (3, 10)
+| where IpAddress has "192.168.25.130"
+| where TargetAccount has "Devin"
+| project TimeGenerated, TargetAccount, IpAddress,
+LogonType, Computer
+| order by TimeGenerated asc</code></pre>
+          </div>
+          <p style="margin-top: 0.75rem; color: var(--text-muted); font-size: 0.85rem;">
+            <strong>False Positives:</strong> Tune to exclude known management IPs
+          </p>
+        </div>
+
+        <!-- Rule 5: Kerberoasting Detection (RC4 TGS Request) -->
+        <div class="rule-card">
+          <div class="rule-card-header">
+            <h3>Rule 5: Kerberoasting Detection (RC4 TGS Request)</h3>
+            <span class="severity severity-high">High</span>
+          </div>
+          <div class="rule-meta">
+            <div class="rule-meta-item">MITRE: <span>T1558.003 - Credential Access</span></div>
+            <div class="rule-meta-item">Source: <span>SecurityEvent</span></div>
+            <div class="rule-meta-item">Frequency: <span>5 min</span></div>
+            <div class="rule-meta-item">Lookback: <span>1 hour</span></div>
+            <div class="rule-meta-item">Entities: <span>Account, Host</span></div>
+          </div>
+          <div class="code-block-wrapper">
+            <div class="code-block-header">
+              <span>KQL</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code class="language-kql">SecurityEvent
+| where EventID == 4769
+| parse EventData with * '&lt;Data Name="TicketEncryptionType"&gt;' TicketEncryptionType '&lt;/Data&gt;' *
+| parse EventData with * '&lt;Data Name="TargetUserName"&gt;' TargetUserName '&lt;/Data&gt;' *
+| where TicketEncryptionType == "0x17"
+| where TargetUserName !has "$"
+| project TimeGenerated, TargetUserName, Computer, TicketEncryptionType</code></pre>
+          </div>
+          <p style="margin-top: 0.75rem; color: var(--text-muted); font-size: 0.85rem;">
+            <strong>False Positives:</strong> Legacy applications still using RC4
+          </p>
+        </div>
+
+        <!-- Rule 6: SharpHound File Drop -->
+        <div class="rule-card">
+          <div class="rule-card-header">
+            <h3>Rule 6: SharpHound/BloodHound File Drop</h3>
+            <span class="severity severity-critical">Critical</span>
+          </div>
+          <div class="rule-meta">
+            <div class="rule-meta-item">MITRE: <span>T1087.002 - Discovery</span></div>
+            <div class="rule-meta-item">Source: <span>Sysmon EID 11</span></div>
+            <div class="rule-meta-item">Frequency: <span>5 min</span></div>
+            <div class="rule-meta-item">Lookback: <span>1 hour</span></div>
+            <div class="rule-meta-item">Entities: <span>Host, File, Account</span></div>
+          </div>
+          <div class="code-block-wrapper">
+            <div class="code-block-header">
+              <span>KQL</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code class="language-kql">Event
+| where Source == "Microsoft-Windows-Sysmon" and EventID == 11
+| where Computer has "Workstation1"
+| parse EventData with * '&lt;Data Name="TargetFilename"&gt;' TargetFile '&lt;/Data&gt;' *
+| parse EventData with * '&lt;Data Name="Image"&gt;' Image '&lt;/Data&gt;' *
+| parse EventData with * '&lt;Data Name="User"&gt;' User '&lt;/Data&gt;' *
+| where TargetFile has_any ("SharpHound", "sharphound",
+"BloodHound", "bloodhound")
+or TargetFile endswith ".exe" and Image has "wsmprovhost"
+| project User, Image, TargetFile, Computer</code></pre>
+          </div>
+          <p style="margin-top: 0.75rem; color: var(--text-muted); font-size: 0.85rem;">
+            <strong>False Positives:</strong> Legitimate AD audit tools (rare)
+          </p>
+        </div>
+
+        <!-- Rule 7: SharpHound Process Execution -->
+        <div class="rule-card">
+          <div class="rule-card-header">
+            <h3>Rule 7: SharpHound Process Execution</h3>
+            <span class="severity severity-critical">Critical</span>
+          </div>
+          <div class="rule-meta">
+            <div class="rule-meta-item">MITRE: <span>T1087.002 - Discovery</span></div>
+            <div class="rule-meta-item">Source: <span>DeviceProcessEvents (MDE)</span></div>
+            <div class="rule-meta-item">Frequency: <span>5 min</span></div>
+            <div class="rule-meta-item">Lookback: <span>1 hour</span></div>
+            <div class="rule-meta-item">Entities: <span>Host, Account, Process</span></div>
+          </div>
+          <div class="code-block-wrapper">
+            <div class="code-block-header">
+              <span>KQL</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code class="language-kql">DeviceProcessEvents
+| where DeviceName has "workstation1"
+| where ProcessCommandLine has_any ("SharpHound", "sharphound",
+"-c All", "CollectionMethod", "--CollectionMethods")
+or FileName has_any ("SharpHound", "sharphound")
+| project Timestamp, DeviceName, AccountName, FileName,
+ProcessCommandLine, InitiatingProcessFileName,
+InitiatingProcessCommandLine
+| order by Timestamp asc</code></pre>
+          </div>
+          <p style="margin-top: 0.75rem; color: var(--text-muted); font-size: 0.85rem;">
+            <strong>False Positives:</strong> None &mdash; SharpHound is an offensive tool
+          </p>
+        </div>
+
+        <!-- Rule 8: New Machine Account Created -->
+        <div class="rule-card">
+          <div class="rule-card-header">
+            <h3>Rule 8: New Machine Account Created</h3>
+            <span class="severity severity-high">High</span>
           </div>
           <div class="rule-meta">
             <div class="rule-meta-item">MITRE: <span>T1134.002 - Privilege Escalation</span></div>
@@ -117,7 +319,72 @@ RelativeTargetName, AccessMask, IpAddress
 | project TimeGenerated, CreatedBy = SubjectUserName, NewComputer = TargetUserName</code></pre>
           </div>
           <p style="margin-top: 0.75rem; color: var(--text-muted); font-size: 0.85rem;">
-            <strong>False Positives:</strong> Legitimate computer joins - correlate with IT tickets
+            <strong>False Positives:</strong> Legitimate computer joins &mdash; correlate with IT tickets
+          </p>
+        </div>
+
+        <!-- Rule 9: RBCD Attribute Modification -->
+        <div class="rule-card">
+          <div class="rule-card-header">
+            <h3>Rule 9: RBCD Attribute Modification</h3>
+            <span class="severity severity-critical">Critical</span>
+          </div>
+          <div class="rule-meta">
+            <div class="rule-meta-item">MITRE: <span>T1134.002 / T1550.003 - Privilege Escalation</span></div>
+            <div class="rule-meta-item">Source: <span>SecurityEvent</span></div>
+            <div class="rule-meta-item">Frequency: <span>5 min</span></div>
+            <div class="rule-meta-item">Lookback: <span>1 hour</span></div>
+            <div class="rule-meta-item">Entities: <span>Account, Host</span></div>
+          </div>
+          <div class="code-block-wrapper">
+            <div class="code-block-header">
+              <span>KQL</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code class="language-kql">SecurityEvent
+| where EventID == 5136
+| parse EventData with * '&lt;Data Name="AttributeLDAPDisplayName"&gt;' AttributeLDAPDisplayName '&lt;/Data&gt;' *
+| parse EventData with * '&lt;Data Name="AttributeValue"&gt;' AttributeValue '&lt;/Data&gt;' *
+| parse EventData with * '&lt;Data Name="ObjectDN"&gt;' ObjectDN '&lt;/Data&gt;' *
+| parse EventData with * '&lt;Data Name="OperationType"&gt;' OperationType '&lt;/Data&gt;' *
+| where AttributeLDAPDisplayName == "msDS-AllowedToActOnBehalfOfOtherIdentity"
+| project TimeGenerated, SubjectUserName, ObjectDN,
+    AttributeLDAPDisplayName, AttributeValue, OperationType, Computer
+| order by TimeGenerated asc</code></pre>
+          </div>
+          <p style="margin-top: 0.75rem; color: var(--text-muted); font-size: 0.85rem;">
+            <strong>False Positives:</strong> Very rare &mdash; any modification to this attribute warrants investigation
+          </p>
+        </div>
+
+        <!-- Rule 10: Multi-Protocol Attack Footprint -->
+        <div class="rule-card">
+          <div class="rule-card-header">
+            <h3>Rule 10: Multi-Protocol Attack Footprint</h3>
+            <span class="severity severity-medium">Medium</span>
+          </div>
+          <div class="rule-meta">
+            <div class="rule-meta-item">MITRE: <span>T1134.002 - Privilege Escalation</span></div>
+            <div class="rule-meta-item">Source: <span>DeviceNetworkEvents (MDE)</span></div>
+            <div class="rule-meta-item">Frequency: <span>15 min</span></div>
+            <div class="rule-meta-item">Lookback: <span>1 hour</span></div>
+            <div class="rule-meta-item">Entities: <span>IP, Host</span></div>
+          </div>
+          <div class="code-block-wrapper">
+            <div class="code-block-header">
+              <span>KQL</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code class="language-kql">DeviceNetworkEvents
+| where DeviceName has "DC1"
+| where RemoteIP has "192.168.25.130"
+| where LocalPort in (88, 135, 389, 445, 636)
+| summarize ConnectionCount = count(), Ports = make_set(LocalPort)
+    by RemoteIP, DeviceName
+| where array_length(Ports) >= 3</code></pre>
+          </div>
+          <p style="margin-top: 0.75rem; color: var(--text-muted); font-size: 0.85rem;">
+            <strong>False Positives:</strong> Domain-joined workstations connecting to DC on multiple ports is normal &mdash; tune to exclude known workstation IPs
           </p>
         </div>
 

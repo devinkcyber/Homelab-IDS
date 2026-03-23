@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=5">
+  <link rel="stylesheet" href="css/style.css?v=9">
 </head>
 <body>
 
@@ -277,7 +277,7 @@ RelativeTargetName, AccessMask, IpAddress
                 <span class="collapsible-arrow">&#9654;</span>
               </div>
               <div class="collapsible-body">
-                <p>The attacker authenticated as <strong>Devin</strong> from <code>192.168.25.130</code> to <strong>Workstation1</strong> within 50 minutes of stealing credentials. XDR flagged this as a compromised account conducting a hands-on-keyboard attack.</p>
+                <p>I authenticated as <strong>Devin</strong> from <code>192.168.25.130</code> (Kali) to <strong>Workstation1</strong> within 50 minutes of stealing credentials. XDR flagged this as a compromised account conducting a hands-on-keyboard attack.</p>
 
                 <img src="images/Lateral.png">
 
@@ -309,7 +309,7 @@ LogonType, Computer
                 <span class="collapsible-arrow">&#9654;</span>
               </div>
               <div class="collapsible-body">
-                <p>The attacker used NetExec to request Kerberos service tickets with RC4 encryption, then cracked them offline with John the Ripper.</p>
+                <p>I used NetExec to request Kerberos service tickets with RC4 encryption, then cracked them offline with John the Ripper.</p>
 
                 <div class="code-block-wrapper attack-cmd">
                   <div class="code-block-header">
@@ -381,7 +381,7 @@ john --wordlist=/usr/share/wordlists/rockyou.txt kerbroast.txt</pre>
                 <span class="collapsible-arrow">&#9654;</span>
               </div>
               <div class="collapsible-body">
-                <p>The attacker used Evil-WinRM to connect to Workstation1 as Devin, uploaded SharpHound.exe, and ran it with <code>-c All</code> to enumerate the entire Active Directory environment.</p>
+                <p>I used Evil-WinRM to connect to Workstation1 as Devin, uploaded SharpHound.exe, and ran it with <code>-c All</code> to enumerate the entire Active Directory environment.</p>
                 <img src="images/BloodhoundEnum1.png">
                 <div class="insight-box">
                   <h4>Key Insight</h4>
@@ -479,7 +479,7 @@ InitiatingProcessCommandLine
                 <span class="collapsible-arrow">&#9654;</span>
               </div>
               <div class="collapsible-body">
-                <p>With GenericWrite over DC1's computer object, the attacker executed a Resource-Based Constrained Delegation (RBCD) attack to achieve full domain compromise.</p>
+                <p>With GenericWrite over DC1's computer object, I executed a Resource-Based Constrained Delegation (RBCD) attack to achieve full domain compromise.</p>
                 <img src="images/BloodhoundEnum2.png">
                 <h4 style="margin: 1.5rem 0 0.75rem; color: var(--text-primary);">Attack Sequence</h4>
                 <ol style="color: var(--text-secondary); margin: 0.5rem 0 1.5rem 1.5rem; line-height: 2;">
